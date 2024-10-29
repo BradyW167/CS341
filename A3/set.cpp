@@ -29,11 +29,8 @@ Set::~Set(){
 
 // Initialize bit array with character array word of size number of characters
 void Set::initialize(char* arr, int size){
-	// Loop through each character in word
-	for(int i = 0; i < size; i++){
-		// Assign value to index i in data
-		getData().getCharData()[i] = arr[i];
-	}
+	// Call BitArray class initialize method with input parameters
+	data_.initialize(arr, size);
 }
 
 // Returns the number of 1's in the bitarray

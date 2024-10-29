@@ -7,8 +7,11 @@
 // bwerling
 #include "bitarray.h"
 
-// Default constructor
-BitArray::BitArray(int size): LENGTH(size * BIT_IN_BYTE), BYTES(size), data_(new char[size]) {}
+// Constructor with size input
+BitArray::BitArray(int size): LENGTH(size * BIT_IN_BYTE), BYTES(size){
+	if(size == 0) {data_ = nullptr;}
+	data_ = new char[size];
+}
 
 // Constructor with word input
 BitArray::BitArray(std::string text, int size): BitArray(size){
@@ -45,6 +48,14 @@ void BitArray::clear(){
 
 // Initialize bit array with character array word of size number of characters
 void BitArray::initialize(char* arr, int size){
+	// Delete previous data_ character array
+	delete[] data_;
+
+	// Reassign attribute values for new word
+	LENGTH = size * BIT_IN_BYTE;
+	BYTES = size;
+	data_ = new char[size];
+
 	// Loop through each character in word
 	for(int i = 0; i < size; i++){
 		// Assign value to index i in data
