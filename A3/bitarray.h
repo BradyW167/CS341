@@ -1,8 +1,16 @@
+// Honor Pledge:
+//
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
 #ifndef BITARRAY_H
 #define BITARRAY_H
 
 #include <iostream>
 #include <string>
+#include <cstring>
 
 // ONLY TO BE USED FOR PRINT METHOD!
 #include <bitset>
@@ -30,8 +38,8 @@ class BitArray
 		*/
 		BitArray(int size = 0);
 
-		// Constructor with word input
-		BitArray(std::string word, int size = 0);  
+		// Constructor with text input
+		BitArray(std::string text, int size = 0);  
 		/**
 		* Copy constructor
 		*
@@ -59,7 +67,7 @@ class BitArray
 		 * @param[in]      word		char*
 	     * @param[in]	   size		int
 	    */		
-		void initialize(const char* word, int size);
+		void initialize(char* arr, int size);
 		
 		/**
 	     * Prints the bits within the BitArray.
@@ -91,6 +99,9 @@ class BitArray
 	    */ 
 		inline int bytes() const { return BYTES; }
 
+		// Return the data_ character array
+		inline char* getCharData(){ return data_; }
+
 		/**
 	     * Returns TRUE if the bit at the specified position
 		 * is set (1), FALSE otherwise.
@@ -101,8 +112,8 @@ class BitArray
 		 *
 	     * @return          bool
 	    */ 
-		bool get(int position) const; 
-		
+		bool get(int position) const;
+
 		/**
 	     * Sets a bit value (default: 1) at the specified position.
 		 * Returns TRUE if successful - FALSE otherwise.
@@ -154,6 +165,8 @@ class BitArray
 		 * @param[in]	   int
 	    */ 
 		void set8(char c, int index);
+
+
 		
 	protected:
 		int LENGTH; // Length of BitArray in terms of bits.

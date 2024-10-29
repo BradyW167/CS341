@@ -1,9 +1,17 @@
+// Honor Pledge:
+//
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
 #ifndef DICTIONARY_H
 #define DICTIONARY_H
 
-#include <ostream>
-
 #include "set.h"
+#include <iostream>
+#include <string>
+#include <cstring>
 
 // Defines the size of the dictionary.
 #define DICTIONARY_SIZE 256
@@ -27,9 +35,12 @@
  */
 class Dictionary {
 	public:
-        	/// Constructor
-       		Dictionary();                                        
+        	// Constructor
+       		Dictionary(int size = 0);                                        
 		
+		// Constructor with text input
+		Dictionary(std::string text, int size);
+
 		/**
 		* Copy constructor
 		*
@@ -50,8 +61,15 @@ class Dictionary {
 		 * @param[in]      word		char *
 	     * @param[in]	   size		int
 	    */	
-		void initialize(char * word, int size);
-		
+		void initialize(char* arr, int size);
+			   
+		/**
+	     * Returns a reference to the underyling BitArray data_
+	     *
+	     * @return          BitArray &
+	    */ 
+		BitArray & getData();
+
 		/**
 	     * Returns how many of the bit b are in the interval 
 		 * [start,end).
@@ -110,10 +128,11 @@ class Dictionary {
 	
 	protected:
 		BitArray data_;	// Instance of a BitArray.
-		int * lookupTable_;	// Lookup Table (Dynamically Allocated Array)
+		int* lookupTable_;// Lookup Table (Dynamically Allocated Array)
        
 	private:
-		// HELPER METHODS GO HERE.
+		// Constructs the lookup table array
+		void buildLookupTable();
 }; 
 
 #endif

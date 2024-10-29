@@ -1,12 +1,25 @@
+// Honor Pledge:
+//
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
 #include "bitarray.h"
 
 // Default constructor
 BitArray::BitArray(int size): LENGTH(size * BIT_IN_BYTE), BYTES(size), data_(new char[size]) {}
 
 // Constructor with word input
-BitArray::BitArray(std::string word, int size): BitArray(size){
-	// Convert input string to character array and initialize bitarray
-	initialize(word.c_str(), size);
+BitArray::BitArray(std::string text, int size): BitArray(size){
+	// Create char* to store string inside of with length + 1 for the null terminator
+	char* arr = new char[size + 1];
+	// Copy string to the character array
+	strcpy(arr, text.c_str());
+	// Assign values to bitarray members
+	initialize(arr, size);
+	// Delete temporary array after assignment is complete
+	delete[] arr;
 }
 
 // Copy constructor
@@ -18,33 +31,24 @@ BitArray::BitArray(const BitArray & array){
 
 // Destructor
 BitArray::~BitArray(){
+	// std::cout << "BitArray Class Destructor Called" << std::endl;
 	delete[] data_;
 }
 
 // Set all bits of all characters to 0
 void BitArray::clear(){
-	std::cout << "Clearing bitarray" << std::endl;
+	std::cout << "\nClear BitArray: " << std::endl;
 	for(int i = 0; i < BYTES; i++){
 		data_[i] = 0;
 	}
 }
 
 // Initialize bit array with character array word of size number of characters
-void BitArray::initialize(char* word, int size){
+void BitArray::initialize(char* arr, int size){
 	// Loop through each character in word
 	for(int i = 0; i < size; i++){
-		// Get character at index i
-		char c = word[i];
-		// Get integer value of character (97-122, a = 97, z = 122)
-		int charvalue = c;
 		// Assign value to index i in data
-		data_[i] = charvalue;
-		/*
-		// Loops through most significant bit
-		for(int j = BIT_IN_BYTE - 1; j >= 0; j--){
-			// Checks if bit at position i is set and assigns its' value in bits array
-			data_[i * BIT_IN_BYTE + j] = (c >> j) & 1;
-		}*/
+		data_[i] = arr[i];
 	}
 }
 
@@ -79,17 +83,22 @@ bool BitArray::set(int position, int bit){
 	int bitindex = position % BIT_IN_BYTE;
 
 	// Print set info for debugging
-	std::cout << "Setting position " << bitindex << " to " << bit << std::endl;
+	// std::cout << "\nSetting " << position << "th position to " << bit  << "..."<< std::endl;
+
 	// Setting bit to 1
 	if(bit == 1){
 		// 1 OR 1 = 1
 		// 0 OR 1 = 1
 		data_[charindex] |= (1 << bitindex);
+		// Print array after setting
+		// print();
 		return true; // Set to 1, return true
 	// Setting bit to 0
 	}else{
 		// Character & with 1s in every position besides the bit to be set
 		data_[charindex] &= (~(1 << bitindex));
+		// Print array after setting
+		// print();
 		return false; // Set to 0, return false
 	}
 }
@@ -111,7 +120,7 @@ bool BitArray::flip(int position){
 
 // Flips each value in the bitarray
 void BitArray::complement(){
-	std::cout << "Flipping bitarray" << std::endl;
+	std::cout << "\nComplement:" << std::endl;
 	// Loop through every character (byte)
 	for(int i = 0; i < BYTES; i++){
 		// Set each byte to its complement
@@ -129,5 +138,5 @@ char BitArray::get8(int position) const{
 
 // Sets the character in given byte with index for the array
 void BitArray::set8(char c, int index){
-
+	data_[index] = c;
 }

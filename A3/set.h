@@ -1,9 +1,17 @@
+// Honor Pledge:
+//
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
 #ifndef SET_H
 #define SET_H
 
 #include "bitarray.h"
-#include <ostream>
+#include <iostream>
 #include <string>
+#include <cstring>
 
 /**
  * @class Set
@@ -12,7 +20,7 @@
  * to a BitArray within the class. The presence of a 1 in the given index indicates that the number is
  * is a member of the set - if the value is 0, the number is not a member of the set.
  */
-class Set : public BitArray
+class Set
 {
     public:
 		/**
@@ -23,7 +31,8 @@ class Set : public BitArray
 		*/
 		Set(int size = 0);
 
-		Set(std::string word, int size);
+		// Constructor with text input
+		Set(std::string text, int size);
 
 		/// Destructor
 		~Set();                                  
@@ -36,7 +45,7 @@ class Set : public BitArray
 		 * @param[in]      word		char *
 	     * @param[in]	   size		int
 	    */
-	    void initialize(char * word, int size);
+	    void initialize(char* arr, int size);
 
 		/**
 	     * Returns the cardinality of the set - here the 
@@ -83,7 +92,7 @@ class Set : public BitArray
 		bool setIntersection(Set & B);
 	   
 	protected:
-       		BitArray data_;	// Instance of a BitArray. 
+       		BitArray data_;	// Instance of a BitArray
 };
 
 #endif
