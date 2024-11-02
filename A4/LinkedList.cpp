@@ -60,13 +60,14 @@ void LinkedList::insert(int element)
 		head_ = new LinkedNode(element);
 		// Since this is first node, it is both the head and the tail
 		tail_ = head_;
-    // Set nodecount to 1
-    nodecount_ = 1;
+    		// Set nodecount to 1
+    		nodecount_ = 1;
 		return;
 	}
 
 	// Stores pointer to head node
 	LinkedNode* n = head_;
+	
 	// Loop until on last node (has no next node)
 	while(n->hasNextLinkedNode())
 	{
@@ -78,24 +79,8 @@ void LinkedList::insert(int element)
 	n->setNextLinkedNode(new LinkedNode(element));
 	// Node n is now the last node or the tail
 	tail_ = n->getNextLinkedNode();
-  // Increment nodecount_
-  nodecount_++;
-}
-
-// Delete a node
-void LinkedList::deleteNode(int num)
-{
-	if(head_->getValue() == num)
-	{
-		if(head_->hasNextLinkedNode())
-		{
-			LinkedNode* newhead = head_->getNextLinkedNode();
-			head_->getNextLinkedNode()->setPrevLinkedNode(nullptr);
-			head_->setNextLinkedNode(nullptr);
-			delete head_;
-			head_ = newhead;
-		}
-	}
+  	// Increment nodecount_
+  	nodecount_++;
 }
 
 void LinkedList::printList()
@@ -117,6 +102,6 @@ void LinkedList::printList()
 	}
 	// Print tail node's value
 	std::cout << n->getValue() << std::endl;
-  // Print length of list
-  std::cout << "Length: " << nodecount_ << std::endl;
+  	// Print length of list
+  	std::cout << "Length: " << nodecount_ << std::endl;
 }

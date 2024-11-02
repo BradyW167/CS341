@@ -10,11 +10,11 @@ class LinkedList
 		// Default constructor
 		LinkedList();
 
-    // Copy constructor
-    LinkedList(const LinkedList & list);
+		// Copy constructor
+		LinkedList(const LinkedList & list);
 
 		// Destructor
-		~LinkedList();
+		virtual ~LinkedList();
 
 		// Returns true if list is empty, false if not
 		bool isEmpty();
@@ -25,9 +25,12 @@ class LinkedList
 		// Insert data element into a node at tail
 		void insert(int element = -1);
 
-		// Delete a node
-		void deleteNode(int num);
+		// Return pointer to head node
+		LinkedNode* getHead() {return head_;}
 
+		// Return pointer to tail node
+		LinkedNode* getTail() {return tail_;}
+		
 		// Prints the list out in order from head to tail
 		virtual void printList();
 	protected:

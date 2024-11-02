@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "LinkedNode.h"
+#include "LinkedList.h"
 
 class DoubleLinkedList : public LinkedList
 {
@@ -16,16 +17,18 @@ class DoubleLinkedList : public LinkedList
 		// Destructor
 		~DoubleLinkedList();
 
-		// Insert input node with input data
-		void insertLinkedNode(LinkedNode* node, int data);
+		// Insert new node at input node with input data
+		// Defaults to tail insertion
+		void insertLinkedNode(LinkedNode* node, int data = -1);
 
-    // Insert 
-    void insertAfterLinkedNode(LinkedNode * node, int data)
+		// Insert new node after input node with input data
+		void insertAfterLinkedNode(LinkedNode * node, int data = -1);
 
-    void insertBeforeLinkedNode(LinkedNode * node, int data);
+		// Insert new node before input node with input data
+		void insertBeforeLinkedNode(LinkedNode * node, int data = -1);
 
-    virtual void printlist() override;
-	private:
+		// Print the double linked list
+		virtual void printList() override;
 };
 
 #endif

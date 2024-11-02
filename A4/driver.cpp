@@ -1,8 +1,8 @@
 #include <string>
 #include <iostream>
 
-#include "LinkedNode.h"
 #include "LinkedList.h"
+#include "DoubleLinkedList.h"
 
 int main(){
 	LinkedList* list = new LinkedList();
@@ -13,10 +13,19 @@ int main(){
 
 	list->printList();
 
-  LinkedList* list2 = list;
+  	LinkedList* list2 = list;
 
-  list2->printList();
+  	list2->printList();
 
-  delete list;
+	delete list;
+
+	DoubleLinkedList* dlist = new DoubleLinkedList();
+	
+	dlist->insertLinkedNode(dlist->getHead(), 10);
+	dlist->insertLinkedNode(dlist->getTail(),7);
+	dlist->insertLinkedNode(dlist->getTail(), 12);
+
+	dlist->printList();
+
 	return 0;
 }
