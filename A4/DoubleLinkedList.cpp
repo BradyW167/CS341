@@ -44,7 +44,24 @@ DoubleLinkedList::~DoubleLinkedList()
 // Insert input node with input data
 void insertLinkedNode(LinkedNode* node, int data)
 {
-  return;
+  // Return if node is nullptr
+  if(node == nullptr) {return;}
+
+  // Create the new node
+  LinkedNode* newNode = new LinkedNode(data);
+
+  // Insert the new node after the specified node
+  newNode->setNextLinkedNode = node->next;
+  newNode->prev = node;
+
+  if (node->next != nullptr) {  // If there's a node after the specified node
+      node->next->prev = newNode;
+  } else {  // If inserting at the end
+      tail_ = newNode;
+  }
+
+  node->next = newNode;
+  }
 }
 
 // Insert input node with input data 
