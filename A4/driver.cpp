@@ -27,5 +27,7 @@ int main(){
 
 	dlist->printList();
 
+	delete dlist;
+
 	return 0;
 }

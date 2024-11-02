@@ -6,31 +6,31 @@ LinkedList::LinkedList() : head_(nullptr), tail_(nullptr), nodecount_(0) {}
 // Copy constructor
 LinkedList::LinkedList(const LinkedList & list)
 {
-  // Original list is empty, nothing to be copied
-  if(list.head_ == nullptr) {return;}
+  	// Original list is empty, nothing to be copied
+  	if(list.head_ == nullptr) {return;}
 
-  // Copy number of nodes (length of list)
-  nodecount_ = list.nodecount_;
+  	// Copy number of nodes (length of list)
+  	nodecount_ = list.nodecount_;
 
-  // Copy head node
-  head_ = new LinkedNode(list.head_->getValue());
+  	// Copy head node
+  	head_ = new LinkedNode(list.head_->getValue());
 
-  // Node pointer to traverse through original list
-  LinkedNode* current_original = list.head_->getNextLinkedNode();
-  // Node to create new list
-  LinkedNode* current_copy = head_;
+  	// Node pointer to traverse through original list
+  	LinkedNode* current_original = list.head_->getNextLinkedNode();
+  	// Node to create new list
+  	LinkedNode* current_copy = head_;
 
-  // Loop until at nullptr (end of list)
-  while(current_original != nullptr)
-  {
-    // Set next node in copy to the next node in the original list
-    current_copy->setNextLinkedNode(new LinkedNode(current_original->getNextLinkedNode()->getValue()));
-    // Advance both pointers
-    current_copy = current_copy->getNextLinkedNode();
-    current_original = current_original->getNextLinkedNode();
-  }
-  // Set tail pointer to last node in copied list
-  tail_ = current_copy;
+  	// Loop until at nullptr (end of list)
+  	while(current_original != nullptr)
+  	{
+    		// Set next node in copy to the next node in the original list
+    		current_copy->setNextLinkedNode(new LinkedNode(current_original->getNextLinkedNode()->getValue()));
+    		// Advance both pointers
+    		current_copy = current_copy->getNextLinkedNode();
+    		current_original = current_original->getNextLinkedNode();
+  	}
+  	// Set tail pointer to last node in copied list
+  	tail_ = current_copy;
 }
 
 // Destructor
