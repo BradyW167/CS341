@@ -3,6 +3,36 @@
 // Default constructor
 LinkedList::LinkedList() : head_(nullptr), tail_(nullptr), nodecount_(0) {}
 
+// Copy constructor
+LinkedList::LinkedList(const LinkedList & list)
+{
+  // Original list is empty, nothing to be copied
+  if(list.head_ == nullptr) {return;}
+
+  // Copy number of nodes (length of list)
+  nodecount_ = list.nodecount_;
+
+  // Copy head node
+  head_ = new LinkedNode(list.head_->getValue());
+
+  // Node pointer to traverse through original list
+  LinkedNode* current_original = list.head_->getNextLinkedNode();
+  // Node to create new list
+  LinkedNode* current_copy = head_;
+
+  // Loop until at nullptr (end of list)
+  while(current_original != nullptr)
+  {
+    // Set next node in copy to the next node in the original list
+    current_copy->setNextLinkedNode(new LinkedNode(current_original->getNextLinkedNode()->getValue()));
+    // Advance both pointers
+    current_copy = current_copy->getNextLinkedNode();
+    current_original = current_original->getNextLinkedNode();
+  }
+  // Set tail pointer to last node in copied list
+  tail_ = current_copy;
+}
+
 // Destructor
 LinkedList::~LinkedList()
 {
@@ -30,6 +60,8 @@ void LinkedList::insert(int element)
 		head_ = new LinkedNode(element);
 		// Since this is first node, it is both the head and the tail
 		tail_ = head_;
+    // Set nodecount to 1
+    nodecount_ = 1;
 		return;
 	}
 
@@ -45,7 +77,9 @@ void LinkedList::insert(int element)
 	// Set n's next node to store data element
 	n->setNextLinkedNode(new LinkedNode(element));
 	// Node n is now the last node or the tail
-	tail_ = n;
+	tail_ = n->getNextLinkedNode();
+  // Increment nodecount_
+  nodecount_++;
 }
 
 // Delete a node
@@ -83,4 +117,6 @@ void LinkedList::printList()
 	}
 	// Print tail node's value
 	std::cout << n->getValue() << std::endl;
+  // Print length of list
+  std::cout << "Length: " << nodecount_ << std::endl;
 }

@@ -13,14 +13,10 @@ int main(){
 
 	list->printList();
 
-	delete list;
+  LinkedList* list2 = list;
 
-	list = new LinkedList();
+  list2->printList();
 
-	list->insert();
-	list->insert(12);
-	list->insert();
-
-	list->printList();
+  delete list;
 	return 0;
 }

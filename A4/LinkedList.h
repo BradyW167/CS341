@@ -10,6 +10,9 @@ class LinkedList
 		// Default constructor
 		LinkedList();
 
+    // Copy constructor
+    LinkedList(const LinkedList & list);
+
 		// Destructor
 		~LinkedList();
 
@@ -26,8 +29,8 @@ class LinkedList
 		void deleteNode(int num);
 
 		// Prints the list out in order from head to tail
-		void printList();
-	private:
+		virtual void printList();
+	protected:
 		// Stores pointer to the head node of the list
 		LinkedNode* head_;
 		// Stores pointer to the tail node of the list

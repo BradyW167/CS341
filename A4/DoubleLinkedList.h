@@ -11,13 +11,20 @@ class DoubleLinkedList : public LinkedList
 		DoubleLinkedList();
 
 		// Copy constructor
-		DoubleLinkedList();
+		DoubleLinkedList(const DoubleLinkedList * list);
 
 		// Destructor
 		~DoubleLinkedList();
 
-		// Insert data element into a node at tail
-		void insert(int element);
+		// Insert input node with input data
+		void insertLinkedNode(LinkedNode* node, int data);
+
+    // Insert 
+    void insertAfterLinkedNode(LinkedNode * node, int data)
+
+    void insertBeforeLinkedNode(LinkedNode * node, int data);
+
+    virtual void printlist() override;
 	private:
 };
 

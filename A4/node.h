@@ -12,7 +12,10 @@ class Node
 
 		// Returns the data_ value
 		int getValue();
-	private:
+
+    // Sets the data_ value
+    void setValue(int data);
+	protected:
 		// Stores this node's data
 		int data_;
 };

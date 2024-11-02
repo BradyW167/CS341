@@ -10,7 +10,7 @@ class LinkedNode : public Node
 		LinkedNode();
 
 		// Constructor with input data and next node
-		LinkedNode(int data = -1, LinkedNode* nextLinkedNode = nullptr);
+		LinkedNode(int data = -1, LinkedNode* nextLinkedNode = nullptr, LinkedNode* prevLinkedNode = nullptr);
 
 		// Copy constructor
 		LinkedNode(const LinkedNode & node);
@@ -19,7 +19,13 @@ class LinkedNode : public Node
 		~LinkedNode();
 
 		// Returns a pointer to the next linked node
+		LinkedNode* getPrevLinkedNode();
+
+		// Returns a pointer to the next linked node
 		LinkedNode* getNextLinkedNode();
+
+		// Sets the next linked node to node
+		void setPrevLinkedNode(LinkedNode* node);
 
 		// Sets the next linked node to node
 		void setNextLinkedNode(LinkedNode* node);
