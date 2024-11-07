@@ -5,6 +5,14 @@ BinarySearchTree::BinarySearchTree() : root_(nullptr), height_(0) {}
 
 // Copy constructor
 BinarySearchTree::BinarySearchTree(const BinarySearchTree & tree) {
+  // Original tree is empty, nothing to copy
+  if(tree.root_ == nullptr) {return;}
+
+  // Copy height of tree
+  height_ = tree.height_;
+
+  // Copy root node
+  root_ = new TreeNode(tree.root_->getValue());
 
 }
 
@@ -17,18 +25,17 @@ BinarySearchTree::~BinarySearchTree() {
 }
 
 // Insert node with data as num
-BinarySearchTree::insert(int num) {
+void BinarySearchTree::insert(int num) {
   // Create new node with data as num
   TreeNode* newNode = new TreeNode(num);
-  // Call method to insert node and 
-  root_ = insertNode(root_, newNode);
 
-  // balanceColor(root);
+  // Call method to insert node
+  // Set root node to the returned node
+  root_ = insertNode(root_, newNode);
 }
 
-BinarySearchTree::print(TreeNode* root) {
-  if(root = nullptr) {
-    std::cout << "Empty tree" << std::endl;
+void BinarySearchTree::print(TreeNode* root) {
+  if(root == nullptr) { 
   }else {
     print(root->getLeftChild());
     std::cout << root->getValue() << " ";
@@ -37,12 +44,16 @@ BinarySearchTree::print(TreeNode* root) {
 }
 
 TreeNode* BinarySearchTree::insertNode(TreeNode* root, TreeNode* node){
-  if(root == nullptr) {return node;}
-  else {
+  // Return node if root is nullptr
+  if(root == nullptr) {
+    return node;
+  }else {
+    // Node is less than root
     if(node->getValue() < root->getValue()) {
       // Left subtree
       root->setLeftChild(insertNode(root->getLeftChild(), node));
       root->getLeftChild()->setParent(root);
+    // Node is greater than root
     }else if(node->getValue() > root->getValue()) {
       // Right subtree
       root->setRightChild(insertNode(root->getRightChild(), node));
