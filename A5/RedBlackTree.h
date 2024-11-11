@@ -7,11 +7,11 @@ class RedBlackTree : public BinarySearchTree {
     RedBlackTree();
 
     // Destructor
-    ~RedBlackTree() override
+    ~RedBlackTree() override;
 
     // Insert new tree node with input data
     virtual void insert(int) override;
 
   private:
     TreeNode* insertHelper(TreeNode* root, TreeNode* node);
-}
+};

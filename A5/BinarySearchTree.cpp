@@ -5,15 +5,28 @@ BinarySearchTree::BinarySearchTree() : root_(nullptr), height_(0) {}
 
 // Copy constructor
 BinarySearchTree::BinarySearchTree(const BinarySearchTree & tree) {
-  // Original tree is empty, nothing to copy
-  if(tree.root_ == nullptr) {return;}
+  // Copy root and recursively copy rest of tree
+  root_ = copyTree(tree.root_);
 
   // Copy height of tree
   height_ = tree.height_;
+}
 
-  // Copy root node
-  root_ = new TreeNode(tree.root_->getValue());
+// Helper function to copy tree
+TreeNode* BinarySearchTree::copyTree(TreeNode* node) {
+  if(node == nullptr) {
+    return nullptr;
+  }
+  // Create new node for this tree from input node's value
+  TreeNode* newNode = new TreeNode(node->getValue());
 
+  // Copy node to new tree and recurse from left tree
+  newNode->setLeftChild(copyTree(node->getLeftChild()));
+
+  // Copy node to new tree and recurse from left tree
+  newNode->setRightChild(copyTree(node->getRightChild()));
+  
+  return newNode;
 }
 
 // Destructor

@@ -8,12 +8,6 @@ class TreeNode : public Node {
     // Constructor
     TreeNode(int data = -1);
 
-    // Copy constructor
-    TreeNode(const TreeNode & node);
-
-    // Helper function to copy tree
-    TreeNode* copyTree(Node* node);
-
     // Destructor
     ~TreeNode();
 

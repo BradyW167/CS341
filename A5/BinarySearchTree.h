@@ -29,16 +29,20 @@ class BinarySearchTree {
 
     // Print the tree
     void print(TreeNode* root);
-
-  private:
+ 
+  protected:
     // Stores pointer to root node
     TreeNode* root_;
 
-    // Insert input node based on input root
-    TreeNode* insertNode(TreeNode* root, TreeNode* node);
-
     // Stores height of tree
     int height_;
+
+  private:
+    // Tree copy helper function
+    TreeNode* copyTree(TreeNode* node);
+
+    // Insert input node based on input root
+    TreeNode* insertNode(TreeNode* root, TreeNode* node);
 };
 
 #endif
