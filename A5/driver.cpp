@@ -36,18 +36,30 @@ int main(){
   
   readFileToTree("data.txt", bst);
   readFileToTree("data.txt", rbt);
-
+  
+  std::cout << "***** BST TESTING *****" << std::endl;
   // Print root node value
   std::cout << "Root value: " << bst->getRoot()->getValue() << std::endl;
 
   // Print tree starting at root node
   bst->print(bst->getRoot());
+  std::cout << std::endl;
 
   // Create bst copy
   BinarySearchTree* bstCopy = bst;
 
   // Print copied tree starting at root node
   bstCopy->print(bstCopy->getRoot());
+  std::cout << std::endl;
 
+  std::cout << "Tree Height: " << bst->getHeight(bst->getRoot()) << std::endl;
+
+  std::cout << "\n***** RBT TESTING *****" << std::endl;
+
+  std::cout << "Root value: " << rbt->getRoot()->getValue() << std::endl;
+
+  // Print tree starting at root node
+  rbt->print(rbt->getRoot());
+  std::cout << std::endl;
   return 0;
 }

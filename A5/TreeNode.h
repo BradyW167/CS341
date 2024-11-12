@@ -16,19 +16,20 @@ class TreeNode : public Node {
     inline TreeNode* getRightChild() {return rightChild_;}
     inline TreeNode* getParent() {return parent_;}
 
-    // Get node color
-    inline bool getColor() {return isRed_;}
 
     // METHODS TO SET ALL NODE POINTERS
     inline void setLeftChild(TreeNode* leftChild) {leftChild_ = leftChild;}
     inline void setRightChild(TreeNode* rightChild) {rightChild_ = rightChild;}
     inline void setParent(TreeNode* parent) {parent_ = parent;}
 
-    // Set node color
-    inline void setColor(bool isRed) {isRed_ = isRed;}
+    // Get node color
+    inline bool isRed() {return isRed_;}
 
-    // Switch node color
-    inline void switchColor() {isRed_ = !isRed_;}
+    // Set node color to red
+    inline void setRed(bool isRed = true) {isRed_ = isRed;}
+
+    // Set node color to black
+    inline void setBlack() {isRed_ = false;}
 
   private:
     // Store pointer to left child node

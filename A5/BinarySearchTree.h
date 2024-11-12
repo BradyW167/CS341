@@ -22,7 +22,7 @@ class BinarySearchTree {
     inline TreeNode* getRoot() {return root_;}
 
     // Get the height of the tree
-    inline int getHeight() {return height_;}
+    int getHeight(TreeNode* node);
 
     // Insert input data into new node and add to tree
     virtual void insert(int);

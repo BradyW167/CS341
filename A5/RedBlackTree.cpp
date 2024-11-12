@@ -18,7 +18,7 @@ void RedBlackTree::insert(int data) {
   // balanceColor(root);
 }
 
-TreeNode* RedBlackTree::insertHelper(TreeNode* root, TreeNode* node){
+TreeNode* RedBlackTree::insertHelper(TreeNode* root, TreeNode* node) {
   // Return node if root is nullptr
   if(root == nullptr) {
     return node;
@@ -39,6 +39,75 @@ TreeNode* RedBlackTree::insertHelper(TreeNode* root, TreeNode* node){
 
     return root;
   }
+}
+
+// Rotate tree to left, sets root to left child of it's right node
+void RedBlackTree::rotateLeft(TreeNode* & root, TreeNode* & newNode) {
+  // Store the node to the right of root, which is the new root
+  // TreeNode* newNode = root->getRightChild();
+
+  // Set original root's right node to the new root's left node
+  root->setRightChild(newNode->getLeftChild());
+  // Update parent node for original root's new right child node
+  root->getRightChild()->setParent(root);
+
+  // Logic for root's parent node
+  if(root->getParent() == nullptr) {
+    setRoot(newNode); // Set new root to root of the entire tree
+  }else if (root == root->getParent()->getLeftChild()) {
+    // Set left child of original root's parent to new root
+    root->getParent()->setLeftChild(newNode);
+  }else {
+    // Set right child of original root's parent to new root
+    root->getParent()->setRightChild(newNode);
+  }
+
+  // Set new root's parent node to original root's parent node
+  newNode->setParent(root->getParent());
+  // Set original root's parent node to new root node
+  root->setParent(newNode);
+
+  // Set new root's left child to original root
+  newNode->setLeftChild(root);
+}
+
+// Rotate tree to right
+void RedBlackTree::rotateRight(TreeNode* & root, TreeNode* & newNode) {
+  // Store the node to the left of root, which is the new root
+  // TreeNode* newNode = root->getLeftChild();
+
+  // Set original root's left node to the new root's right node
+  root->setLeftChild(newNode->getRightChild());
+  // Update parent node for original root's new left child node
+  root->getLeftChild()->setParent(root);
+
+  // Logic for root's parent node
+  if(root->getParent() == nullptr) {
+    setRoot(newNode); // Set new root to root of the entire tree
+  }else if (root == root->getParent()->getLeftChild()) {
+    // Set left child of original root's parent to new root
+    root->getParent()->setLeftChild(newNode);
+  }else {
+    // Set right child of original root's parent to new root
+    root->getParent()->setRightChild(newNode);
+  }
+
+  // Set new root's parent node to original root's parent node
+  newNode->setParent(root->getParent());
+  // Set original root's parent node to new root node
+  root->setParent(newNode);
+
+  // Set new root's right child to original root
+  newNode->setRightChild(root);
+}
+
+// Maintains color balance in tree after changes
+void RedBlackTree::balanceColor(TreeNode* & root, TreeNode* & newNode) {
+  // Stores the color of the previous node
+  bool previousNodeRed = newNode.isRed();
+  // Set tree root to black if not
+  if(getRoot()->isRed() == true) {getRoot()->setBlack();}
+  
 }
 
 /*

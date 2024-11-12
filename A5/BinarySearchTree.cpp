@@ -37,6 +37,23 @@ BinarySearchTree::~BinarySearchTree() {
   }
 }
 
+// Calculate height of this tree
+int BinarySearchTree::getHeight(TreeNode* node) {
+  // Stores height of subtrees
+  int leftHeight = 0, rightHeight = 0, height = 0;
+
+  // Return 0 if input node is nullptr
+  if(node == nullptr) {return 0;}
+  else {
+    leftHeight = getHeight(node->getLeftChild());
+    rightHeight = getHeight(node->getRightChild());
+
+    height = (leftHeight > rightHeight) ? leftHeight : rightHeight;
+
+    return height + 1;
+  }
+}
+
 // Insert node with data as num
 void BinarySearchTree::insert(int num) {
   // Create new node with data as num
@@ -48,7 +65,7 @@ void BinarySearchTree::insert(int num) {
 }
 
 void BinarySearchTree::print(TreeNode* root) {
-  if(root == nullptr) { 
+  if(root == nullptr) {
   }else {
     print(root->getLeftChild());
     std::cout << root->getValue() << " ";
