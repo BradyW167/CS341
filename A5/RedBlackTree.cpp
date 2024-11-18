@@ -17,6 +17,7 @@ void RedBlackTree::insert(int data) {
 
   // Get lvalue for newNode's parent
   TreeNode* parent = newNode->getParent();
+  if(parent == nullptr) { std::cout << "Parent is nullptr" << std::endl;}
   balanceColor(parent, newNode);
 }
 
@@ -45,9 +46,6 @@ TreeNode* RedBlackTree::insertHelper(TreeNode* root, TreeNode* node) {
 
 // Rotate tree to left, sets root to left child of it's right node
 void RedBlackTree::rotateLeft(TreeNode* & root, TreeNode* & newNode) {
-  // Store the node to the right of root, which is the new root
-  // TreeNode* newNode = root->getRightChild();
-
   // Set original root's right node to the new root's left node
   root->setRightChild(newNode->getLeftChild());
   // Update parent node for original root's new right child node
@@ -75,9 +73,6 @@ void RedBlackTree::rotateLeft(TreeNode* & root, TreeNode* & newNode) {
 
 // Rotate tree to right
 void RedBlackTree::rotateRight(TreeNode* & root, TreeNode* & newNode) {
-  // Store the node to the left of root, which is the new root
-  // TreeNode* newNode = root->getLeftChild();
-
   // Set original root's left node to the new root's right node
   root->setLeftChild(newNode->getRightChild());
   // Update parent node for original root's new left child node
@@ -105,6 +100,12 @@ void RedBlackTree::rotateRight(TreeNode* & root, TreeNode* & newNode) {
 
 // Maintains color balance in tree after changes
 void RedBlackTree::balanceColor(TreeNode* & root, TreeNode* & newNode) {
+  // If newNode is the root of the tree (parent is nullptr)...
+  if(root == nullptr) {
+    newNode->setBlack();
+    return;
+  }
+
   // Set tree root to black if not
   if(getRoot()->isRed() == true) {
       std::cout << "Root is red" << std::endl;
@@ -115,33 +116,38 @@ void RedBlackTree::balanceColor(TreeNode* & root, TreeNode* & newNode) {
   ///////// look at parent, grandparent, and uncle colors to push down blackness
   // If both nodes are red
   if(root->isRed() && newNode->isRed()) {
+    std::cout << "Two red nodes detected" << std::endl;
+
     // If root is left child...
-    if(root = root->getParent()->getLeftChild()) {
+    if(root == root->getParent()->getLeftChild()) {
+      std::cout << "Root is left child" << std::endl;
+
       // If new node is left child...
       if(newNode = root->getLeftChild()) {
         TreeNode* parent = root->getParent(); // Get lvalue for root's parent
         rotateRight(parent, root); // Rotate root to its' parent
       }
       // If new node is right child...
-      else if(newNode = root->getRightChild()) {
+      else if(newNode == root->getRightChild()) {
         rotateLeft(root, newNode); // Rotate newNode to its' root
         TreeNode* parent = newNode->getParent(); // Get lvalue for newNode's parent
         rotateRight(parent, newNode); // Rotate newNode to its' parent
       }
     }
-    // If root is right child
-    else if (root = root->getParent()->getRightChild()) {
-      // If new node is left child...
-      if(newNode = root->getLeftChild()) {
-        rotateRight(root, newNode); // Rotate newNode to its' root
-        TreeNode* parent = newNode->getParent(); // Get lvalue for newNode's parent
-        rotateLeft(parent, newNode); // Rotate newNode to it's parent
-      }
-      // If new node is right child...
-      else if(newNode = root->getRightChild()) {
-        TreeNode* parent = root->getParent(); // Get lvalue for root's parent
-        rotateLeft(parent, root); // Rotate root to its' parent
-      }
+  // If root is right child
+  }else if (root->getParent() != nullptr && root == root->getParent()->getRightChild()) {
+    std::cout << "Root is right child" << std::endl;
+
+    // If new node is left child...
+    if(newNode == root->getLeftChild()) {
+      rotateRight(root, newNode); // Rotate newNode to its' root
+      TreeNode* parent = newNode->getParent(); // Get lvalue for newNode's parent
+      rotateLeft(parent, newNode); // Rotate newNode to it's parent
+    }
+    // If new node is right child...
+    else if(newNode == root->getRightChild()) {
+      TreeNode* parent = root->getParent(); // Get lvalue for root's parent
+      rotateLeft(parent, root); // Rotate root to its' parent
     }
   }
 }

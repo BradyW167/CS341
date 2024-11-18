@@ -13,13 +13,14 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +39 driver.cpp
+badd +70 driver.cpp
 badd +17 RedBlackTree.h
-badd +29 RedBlackTree.cpp
-badd +11 TreeNode.h
-badd +26 BinarySearchTree.cpp
-badd +33 BinarySearchTree.h
-badd +10 TreeNode.cpp
+badd +118 RedBlackTree.cpp
+badd +29 TreeNode.h
+badd +2 TreeNode.cpp
+badd +1 data.txt
+badd +14 v.txt
+badd +11 cases.cpp
 argglobal
 %argdel
 tabnew +setlocal\ bufhidden=wipe
@@ -27,32 +28,6 @@ tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabrewind
 edit driver.cpp
-argglobal
-setlocal fdm=expr
-setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 40 - ((39 * winheight(0) + 33) / 67)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 40
-normal! 026|
-tabnext
-edit BinarySearchTree.cpp
-let s:save_splitbelow = &splitbelow
-let s:save_splitright = &splitright
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-let &splitbelow = s:save_splitbelow
-let &splitright = s:save_splitright
 wincmd t
 let s:save_winminheight = &winminheight
 let s:save_winminwidth = &winminwidth
@@ -60,9 +35,7 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-wincmd =
 argglobal
-balt RedBlackTree.h
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
 setlocal fmr={{{,}}}
@@ -71,111 +44,18 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-16
+8
+normal! zo
+13
 normal! zo
 33
 normal! zo
-50
-normal! zo
-59
-normal! zo
-61
-normal! zo
-65
-normal! zo
-let s:l = 26 - ((25 * winheight(0) + 33) / 67)
+let s:l = 70 - ((21 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 26
-normal! 052|
-wincmd w
-argglobal
-if bufexists(fnamemodify("BinarySearchTree.h", ":p")) | buffer BinarySearchTree.h | else | edit BinarySearchTree.h | endif
-if &buftype ==# 'terminal'
-  silent file BinarySearchTree.h
-endif
-balt BinarySearchTree.cpp
-setlocal fdm=expr
-setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-1
-normal! zo
-let s:l = 33 - ((32 * winheight(0) + 33) / 67)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 33
-normal! 012|
-wincmd w
-wincmd =
-tabnext
-edit TreeNode.cpp
-let s:save_splitbelow = &splitbelow
-let s:save_splitright = &splitright
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-let &splitbelow = s:save_splitbelow
-let &splitright = s:save_splitright
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
-wincmd =
-argglobal
-balt BinarySearchTree.h
-setlocal fdm=expr
-setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-7
-normal! zo
-9
-normal! zo
-let s:l = 16 - ((15 * winheight(0) + 33) / 67)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 16
+keepjumps 70
 normal! 0
-wincmd w
-argglobal
-if bufexists(fnamemodify("TreeNode.h", ":p")) | buffer TreeNode.h | else | edit TreeNode.h | endif
-if &buftype ==# 'terminal'
-  silent file TreeNode.h
-endif
-balt TreeNode.cpp
-setlocal fdm=expr
-setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 11 - ((10 * winheight(0) + 33) / 67)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 11
-normal! 0
-wincmd w
-wincmd =
 tabnext
 edit RedBlackTree.cpp
 let s:save_splitbelow = &splitbelow
@@ -196,7 +76,7 @@ set winminwidth=0
 set winwidth=1
 wincmd =
 argglobal
-balt RedBlackTree.h
+balt TreeNode.cpp
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
 setlocal fmr={{{,}}}
@@ -205,18 +85,40 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-21
+24
 normal! zo
-23
+26
 normal! zo
-27
+30
 normal! zo
-let s:l = 29 - ((28 * winheight(0) + 33) / 67)
+48
+normal! zo
+102
+normal! zo
+118
+normal! zo
+122
+normal! zo
+126
+normal! zo
+139
+normal! zo
+141
+normal! zo
+138
+normal! zo
+142
+normal! zo
+153
+normal! zo
+153
+normal! zo
+let s:l = 118 - ((4 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 29
-normal! 037|
+keepjumps 118
+normal! 03|
 wincmd w
 argglobal
 if bufexists(fnamemodify("RedBlackTree.h", ":p")) | buffer RedBlackTree.h | else | edit RedBlackTree.h | endif
@@ -232,7 +134,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 17 - ((16 * winheight(0) + 33) / 67)
+let s:l = 17 - ((16 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -240,7 +142,85 @@ keepjumps 17
 normal! 02|
 wincmd w
 wincmd =
-tabnext 2
+tabnext
+edit cases.cpp
+argglobal
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 3 - ((2 * winheight(0) + 18) / 36)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 3
+normal! 0
+tabnext
+edit TreeNode.cpp
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+wincmd =
+argglobal
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+7
+normal! zo
+let s:l = 16 - ((15 * winheight(0) + 18) / 36)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 16
+normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("TreeNode.h", ":p")) | buffer TreeNode.h | else | edit TreeNode.h | endif
+if &buftype ==# 'terminal'
+  silent file TreeNode.h
+endif
+balt TreeNode.cpp
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+1
+normal! zo
+let s:l = 32 - ((31 * winheight(0) + 18) / 36)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 32
+normal! 032|
+wincmd w
+wincmd =
+tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif

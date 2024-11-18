@@ -26,17 +26,19 @@ void readFileToTree(std::string fileName, BinarySearchTree* tree) {
       std::cout << "Inserting " << num << " into tree" << std::endl;
       tree->insert(num);
     }
+    file.close();
   }
 }
 
 int main(){
   // Create bst and rbt
-  BinarySearchTree* bst = new BinarySearchTree();
+  //BinarySearchTree* bst = new BinarySearchTree();
   RedBlackTree* rbt = new RedBlackTree();
   
-  readFileToTree("data.txt", bst);
+  //readFileToTree("data.txt", bst);
   readFileToTree("data.txt", rbt);
   
+  /*
   std::cout << "***** BST TESTING *****" << std::endl;
   // Print root node value
   std::cout << "Root value: " << bst->getRoot()->getValue() << std::endl;
@@ -54,12 +56,20 @@ int main(){
 
   std::cout << "Tree Height: " << bst->getHeight(bst->getRoot()) << std::endl;
 
+  // Delete trees
+  delete bst;
+  delete bstCopy;
+  */
+
   std::cout << "\n***** RBT TESTING *****" << std::endl;
 
   std::cout << "Root value: " << rbt->getRoot()->getValue() << std::endl;
 
   // Print tree starting at root node
   rbt->print(rbt->getRoot());
-  std::cout << std::endl;
+
+  // Delete tree
+  delete rbt;
+
   return 0;
 }

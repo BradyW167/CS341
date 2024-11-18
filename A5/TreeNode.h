@@ -26,7 +26,7 @@ class TreeNode : public Node {
     inline bool isRed() {return isRed_;}
 
     // Set node color to red
-    inline void setRed(bool isRed = true) {isRed_ = isRed;}
+    inline void setRed() {isRed_ = true;}
 
     // Set node color to black
     inline void setBlack() {isRed_ = false;}
