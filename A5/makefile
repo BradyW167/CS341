@@ -11,6 +11,7 @@ driver.o: driver.cpp
 
 node.o: node.cpp
 	g++ -c node.cpp -o node.o
+
 TreeNode.o: TreeNode.cpp
 	g++ -c TreeNode.cpp -o TreeNode.o
 
@@ -21,4 +22,4 @@ RBT.o: RedBlackTree.cpp
 	g++ -c RedBlackTree.cpp -o RBT.o
 
 clean:
-	rm -rf *.o A5
+	rm -rf *.o A5.exe A5

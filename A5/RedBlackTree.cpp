@@ -17,7 +17,8 @@ void RedBlackTree::insert(int data) {
 
   // Get lvalue for newNode's parent
   TreeNode* parent = newNode->getParent();
-  if(parent == nullptr) { std::cout << "Parent is nullptr" << std::endl;}
+
+  // Check the tree for color imbalances
   balanceColor(parent, newNode);
 }
 
@@ -46,24 +47,31 @@ TreeNode* RedBlackTree::insertHelper(TreeNode* root, TreeNode* node) {
 
 // Rotate tree to left, sets root to left child of it's right node
 void RedBlackTree::rotateLeft(TreeNode* & root, TreeNode* & newNode) {
-  // Set original root's right node to the new root's left node
-  root->setRightChild(newNode->getLeftChild());
-  // Update parent node for original root's new right child node
-  root->getRightChild()->setParent(root);
+    // Get lvalue for new node's right child and grandparent node
+  TreeNode* newNodeLeftChild = newNode->getLeftChild(); // Get lvalue for new node's left child
+  TreeNode* grand = root->getParent();
+
+  // Check for nullptr
+  if(newNodeLeftChild != nullptr) {
+    // Set original root's right node to the new root's left node
+    root->setRightChild(newNodeLeftChild);
+    // Update parent node for original root's new right child node
+    newNodeLeftChild->setParent(root);
+  }
 
   // Logic for root's parent node
-  if(root->getParent() == nullptr) {
+  if(grand == nullptr) {
     setRoot(newNode); // Set new root to root of the entire tree
-  }else if (root == root->getParent()->getLeftChild()) {
+  }else if (root == grand->getLeftChild()) {
     // Set left child of original root's parent to new root
-    root->getParent()->setLeftChild(newNode);
+    grand->setLeftChild(newNode);
   }else {
     // Set right child of original root's parent to new root
-    root->getParent()->setRightChild(newNode);
+    grand->setRightChild(newNode);
   }
 
   // Set new root's parent node to original root's parent node
-  newNode->setParent(root->getParent());
+  newNode->setParent(grand);
   // Set original root's parent node to new root node
   root->setParent(newNode);
 
@@ -73,24 +81,31 @@ void RedBlackTree::rotateLeft(TreeNode* & root, TreeNode* & newNode) {
 
 // Rotate tree to right
 void RedBlackTree::rotateRight(TreeNode* & root, TreeNode* & newNode) {
-  // Set original root's left node to the new root's right node
-  root->setLeftChild(newNode->getRightChild());
-  // Update parent node for original root's new left child node
-  root->getLeftChild()->setParent(root);
+  // Get lvalue for new node's right child and grandparent node
+  TreeNode* newNodeRightChild = newNode->getRightChild(); // Get lvalue for new node's right child
+  TreeNode* grand = root->getParent();
+
+  // Check for nullptr
+  if(newNodeRightChild != nullptr) {
+    // Set original root's left node to the new root's right node
+    root->setLeftChild(newNodeRightChild);
+    // Update parent node for original root's new left child node
+    newNodeRightChild->setParent(root);
+  }
 
   // Logic for root's parent node
-  if(root->getParent() == nullptr) {
+  if(grand == nullptr) {
     setRoot(newNode); // Set new root to root of the entire tree
-  }else if (root == root->getParent()->getLeftChild()) {
+  }else if (root == grand->getLeftChild()) {
     // Set left child of original root's parent to new root
-    root->getParent()->setLeftChild(newNode);
+    grand->setLeftChild(newNode);
   }else {
     // Set right child of original root's parent to new root
-    root->getParent()->setRightChild(newNode);
+    grand->setRightChild(newNode);
   }
 
   // Set new root's parent node to original root's parent node
-  newNode->setParent(root->getParent());
+  newNode->setParent(grand);
   // Set original root's parent node to new root node
   root->setParent(newNode);
 
@@ -100,54 +115,103 @@ void RedBlackTree::rotateRight(TreeNode* & root, TreeNode* & newNode) {
 
 // Maintains color balance in tree after changes
 void RedBlackTree::balanceColor(TreeNode* & root, TreeNode* & newNode) {
-  // If newNode is the root of the tree (parent is nullptr)...
+  // Root is nullptr, this is the root of the tree
   if(root == nullptr) {
+    std::cout << "Setting root to black" << std::endl;
     newNode->setBlack();
-    return;
   }
 
-  // Set tree root to black if not
-  if(getRoot()->isRed() == true) {
-      std::cout << "Root is red" << std::endl;
-      getRoot()->setBlack();
-      getRoot()->isRed() ? std::cout << "Root is red" << std::endl : std::cout << "Root is black" << std::endl;
-    }
-
-  ///////// look at parent, grandparent, and uncle colors to push down blackness
-  // If both nodes are red
-  if(root->isRed() && newNode->isRed()) {
+  // New node and its parent are both red
+  else if(root->isRed() && newNode->isRed()) {
     std::cout << "Two red nodes detected" << std::endl;
 
+    TreeNode* grand = root->getParent(); // Get lvalue for grandparent node
+
+    std::cout << "Grandfather node value: " << grand->getValue() << std::endl;
+    std::cout << "Right child value: " << grand->getRightChild()->getValue() << std::endl;
+    std::cout << "Right right child value: " << grand->getRightChild()->getRightChild()->getValue() << std::endl;
+
     // If root is left child...
-    if(root == root->getParent()->getLeftChild()) {
+    if(root == grand->getLeftChild()) {
       std::cout << "Root is left child" << std::endl;
 
-      // If new node is left child...
-      if(newNode = root->getLeftChild()) {
-        TreeNode* parent = root->getParent(); // Get lvalue for root's parent
-        rotateRight(parent, root); // Rotate root to its' parent
+      TreeNode* uncle = grand->getRightChild(); // Get lvalue for uncle node
+
+      // If uncle is red...
+      if(uncle != nullptr && uncle->isRed()) {
+        std::cout << "Uncle is red, pushing blackness down" << std::endl;
+
+        // Push blackness down from grandparent node to parent and uncle nodes
+        grand->setRed();
+        root->setBlack();
+        uncle->setBlack();
+
+        TreeNode* greatGrand = grand->getParent(); // Get lvalue for great grandparent node
+
+        balanceColor(greatGrand, grand); // Recursive call above color fixed nodes
       }
+
+      // If new node is left child...
+      else if(newNode = root->getLeftChild()) {
+        rotateRight(grand, root); // Rotate parent to grandparent node
+
+        // Fix coloring on rotated nodes
+        root->setBlack();
+        grand->setRed();
+      }
+
       // If new node is right child...
       else if(newNode == root->getRightChild()) {
-        rotateLeft(root, newNode); // Rotate newNode to its' root
-        TreeNode* parent = newNode->getParent(); // Get lvalue for newNode's parent
-        rotateRight(parent, newNode); // Rotate newNode to its' parent
+        rotateLeft(root, newNode); // Rotate newNode to parent
+        rotateRight(grand, newNode); // Rotate newNode to grandparent
+
+        // Fix coloring on rotated nodes
+        newNode->setBlack();
+        grand->setRed();
       }
     }
-  // If root is right child
-  }else if (root->getParent() != nullptr && root == root->getParent()->getRightChild()) {
-    std::cout << "Root is right child" << std::endl;
 
-    // If new node is left child...
-    if(newNode == root->getLeftChild()) {
-      rotateRight(root, newNode); // Rotate newNode to its' root
-      TreeNode* parent = newNode->getParent(); // Get lvalue for newNode's parent
-      rotateLeft(parent, newNode); // Rotate newNode to it's parent
-    }
-    // If new node is right child...
-    else if(newNode == root->getRightChild()) {
-      TreeNode* parent = root->getParent(); // Get lvalue for root's parent
-      rotateLeft(parent, root); // Rotate root to its' parent
+    // If root is right child...
+    else if (root == grand->getRightChild()) {
+      std::cout << "Root is right child" << std::endl;
+
+      TreeNode* uncle = grand->getLeftChild(); // Get lvalue for uncle node
+
+      // If uncle is red...
+      if(uncle != nullptr && uncle->isRed()) {
+        std::cout << "Uncle is red, pushing blackness down" << std::endl;
+
+        // Push blackness down from grandparent node to parent and uncle nodes
+        grand->setRed();
+        root->setBlack();
+        uncle->setBlack();
+
+        TreeNode* greatGrand = grand->getParent(); // Get lvalue for great grandparent node
+
+        balanceColor(greatGrand, grand); // Recursive call above color fixed nodes
+      }
+
+      // If new node is left child...
+      else if(newNode == root->getLeftChild()) {
+        std::cout << "New node is left child" << std::endl;
+        rotateRight(root, newNode); // Rotate newNode to parent
+        rotateLeft(grand, newNode); // Rotate newNode to grandparent
+
+        // Fix coloring on rotated nodes
+        newNode->setBlack();
+        grand->setRed();
+      }
+
+      // If new node is right child...
+      else if(newNode == root->getRightChild()) {
+        std::cout << "New node is right child" << std::endl;
+        print(getRoot()); // Print tree
+        rotateLeft(grand, root); // Rotate parent to grandparent node
+
+        // Fix coloring on rotated nodes
+        root->setBlack();
+        grand->setRed();
+      }
     }
   }
 }
