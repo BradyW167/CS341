@@ -1,7 +1,15 @@
+// Honor Pledge:
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
+
 #ifndef BINARY_SEARCH_TREE
 #define BINARY_SEARCH_TREE
 
 #include <iostream>
+
 #include "TreeNode.h"
 
 class BinarySearchTree {

@@ -1,5 +1,14 @@
-#include "TreeNode.h"
+// Honor Pledge:
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
+
+#include <iostream>
+
 #include "BinarySearchTree.h"
+#include "TreeNode.h"
 
 class RedBlackTree : public BinarySearchTree {
   public:
@@ -9,11 +18,19 @@ class RedBlackTree : public BinarySearchTree {
     // Destructor
     ~RedBlackTree() override;
 
+    // Copy constructor
+    RedBlackTree(const RedBlackTree & tree);
+
+    // Copy helper function
+    TreeNode* copyTree(TreeNode* root, TreeNode* node);
+
     // Insert new tree node with input data
     virtual void insert(int) override;
 
+    // Prints red nodes inorder
     void printRedNodes(TreeNode * root);
 
+    // Prints black nodes preorder
     void printBlackNodes(TreeNode * root);
 
   private:

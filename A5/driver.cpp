@@ -1,7 +1,15 @@
+// Honor Pledge:
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
+
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
+
 #include "BinarySearchTree.h"
 #include "RedBlackTree.h"
 
@@ -31,49 +39,72 @@ void readFileToTree(std::string fileName, BinarySearchTree* tree) {
 }
 
 int main(){
-  // Create bst and rbt
-  //BinarySearchTree* bst = new BinarySearchTree();
-  RedBlackTree* rbt = new RedBlackTree();
-  
-  //readFileToTree("data.txt", bst);
-  readFileToTree("data.txt", rbt);
-  
-  /*
-  std::cout << "***** BST TESTING *****" << std::endl;
-  // Print root node value
-  std::cout << "Root value: " << bst->getRoot()->getValue() << std::endl;
+  std::cout << "***** BINARY SEARCH TREE *****" << std::endl;
+
+  BinarySearchTree* bst = new BinarySearchTree(); // Initialize binary search tree
+
+  readFileToTree("data.txt", bst); // Read data file into the tree
+
+  std::cout << "\nRoot value: " << bst->getRoot()->getValue() << std::endl; // Print root node value
 
   // Print tree starting at root node
   bst->print(bst->getRoot());
   std::cout << std::endl;
 
-  // Create bst copy
-  BinarySearchTree* bstCopy = bst;
+  std::cout << "\nTree Height: " << bst->getHeight(bst->getRoot()) << std::endl; // Print height of tree
+
+  BinarySearchTree* bstCopy = new BinarySearchTree(*bst); // Create bst copy
 
   // Print copied tree starting at root node
+  std::cout << "\nPrinting copied binary search tree..." << std::endl;
   bstCopy->print(bstCopy->getRoot());
   std::cout << std::endl;
 
-  std::cout << "Tree Height: " << bst->getHeight(bst->getRoot()) << std::endl;
-
-  // Delete trees
+  // Delete binary search trees
   delete bst;
   delete bstCopy;
-  */
 
-  std::cout << "\n***** RBT TESTING *****" << std::endl;
+  std::cout << "\n***** RED BLACK TREE *****" << std::endl;
 
-  std::cout << "Root value: " << rbt->getRoot()->getValue() << std::endl;
+  RedBlackTree* rbt = new RedBlackTree();
+
+  readFileToTree("data.txt", rbt); // Read data file into the tree
+
+  std::cout << "\nRoot value: " << rbt->getRoot()->getValue() << std::endl;
 
   // Print tree starting at root node
+  std::cout << "\nPrinting tree..." << std::endl;
   rbt->print(rbt->getRoot());
+  std::cout << std::endl;
 
   // Print red and black nodes
+  std::cout << "\nPrinting red nodes inorder..." << std::endl;
   rbt->printRedNodes(rbt->getRoot());
-  rbt->printBlackNodes(rbt->getRoot());
+  std::cout << std::endl;
 
-  // Delete tree
+  std::cout << "\nPrinting black nodes preorder..." << std::endl;
+  rbt->printBlackNodes(rbt->getRoot());
+  std::cout << std::endl;
+
+  RedBlackTree* rbtCopy = new RedBlackTree(*rbt); // Create rbt copy
+
+  // Print copied tree starting at root node
+  std::cout << "\nPrinting copied red black tree..." << std::endl;
+  rbtCopy->print(rbtCopy->getRoot());
+  std::cout << std::endl;
+
+  // Print red and black nodes
+  std::cout << "\nPrinting red nodes inorder..." << std::endl;
+  rbtCopy->printRedNodes(rbtCopy->getRoot());
+  std::cout << std::endl;
+
+  std::cout << "\nPrinting black nodes preorder..." << std::endl;
+  rbtCopy->printBlackNodes(rbtCopy->getRoot());
+  std::cout << std::endl;
+
+  // Delete red black trees
   delete rbt;
+  delete rbtCopy;
 
   return 0;
 }

@@ -1,3 +1,10 @@
+// Honor Pledge:
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
+
 #include "RedBlackTree.h"
 
 // Default constructor
@@ -5,6 +12,41 @@ RedBlackTree::RedBlackTree() : BinarySearchTree() {}
 
 // Destructor
 RedBlackTree::~RedBlackTree() {}
+
+// Copy constructor
+RedBlackTree::RedBlackTree(const RedBlackTree & tree) {
+  // Copy root and recursively copy rest of tree
+  root_ = copyTree(nullptr, tree.root_);
+
+  // Copy height of tree
+  height_ = tree.height_;
+}
+
+// Helper function to copy tree
+TreeNode* RedBlackTree::copyTree(TreeNode* root, TreeNode* node) {
+  // Return nullptr if this node is nullptr
+  if(node == nullptr) {return nullptr;}
+
+  // Create new node for this tree from input node's value
+  TreeNode* newNode = new TreeNode(node->getValue());
+
+  // Copy color of node
+  // Nodes are red by default, change when not red
+  if(!node->isRed()) {newNode->setBlack();}
+
+  // Copy parent pointer for this node
+  newNode->setParent(root);
+
+  // Copy node to new tree and recurse from left tree
+  newNode->setLeftChild(copyTree(node, node->getLeftChild()));
+
+  // Copy node to new tree and recurse from left tree
+  newNode->setRightChild(copyTree(node, node->getRightChild()));
+
+  // Return the node for recursively setting its children
+  return newNode;
+}
+
 
 // Insert new tree node with input data
 void RedBlackTree::insert(int data) {
@@ -22,21 +64,22 @@ void RedBlackTree::insert(int data) {
   balanceColor(parent, newNode);
 }
 
-void RedBlackTree::printRedNodes(TreeNode * root) {
-  if(root == nullptr) {
-  }else {
-    print(root->getLeftChild()); // Print left subtree first for inorder
+void RedBlackTree::printRedNodes(TreeNode* root) {
+  // Print if this node is not nullptr
+  if(root != nullptr) {
+    printRedNodes(root->getLeftChild()); // Print left subtree first for inorder
     if(root->isRed()) {std::cout << root->getValue() << " ";} // Print red root values
-    print(root->getRightChild()); // Print right subtree last for inorder
+    printRedNodes(root->getRightChild()); // Print right subtree last for inorder
   }
 }
 
-void RedBlackTree::printBlackNodes(TreeNode * root) {
+void RedBlackTree::printBlackNodes(TreeNode* root) {
+  // Print nothing when nullptr
   if(root == nullptr) {
   }else {
     if(!root->isRed()) {std::cout << root->getValue() << " ";} // Print red root values
-    print(root->getLeftChild()); // Print left subtree first for inorder
-    print(root->getRightChild()); // Print right subtree last for inorder
+    printBlackNodes(root->getLeftChild()); // Print left subtree first for inorder
+    printBlackNodes(root->getRightChild()); // Print right subtree last for inorder
   }
 }
 
@@ -97,10 +140,6 @@ void RedBlackTree::rotateLeft(TreeNode* & root, TreeNode* & newNode) {
 
   // Set new root's left child to original root
   newNode->setLeftChild(root);
-  std::cout << "newNode left child: " << newNode->getLeftChild()->getValue() << std::endl;
-  std::cout << "newNode right child: " << newNode->getRightChild()->getValue() << std::endl;
-  std::cout << "root left child" << ( root->getLeftChild() ? root->getLeftChild()->getValue() : 0) << std::endl;
-  std::cout << "root right child" << ( root->getRightChild() ? root->getRightChild()->getValue() : 0) << std::endl;
 }
 
 // Rotate tree to right

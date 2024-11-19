@@ -1,3 +1,10 @@
+// Honor Pledge:
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
+
 #include "BinarySearchTree.h"
 
 // Default constructor
@@ -5,6 +12,7 @@ BinarySearchTree::BinarySearchTree() : root_(nullptr), height_(0) {}
 
 // Copy constructor
 BinarySearchTree::BinarySearchTree(const BinarySearchTree & tree) {
+  std::cout << "Original tree root value: " << tree.root_->getValue() << std::endl;
   // Copy root and recursively copy rest of tree
   root_ = copyTree(tree.root_);
 
@@ -25,7 +33,8 @@ TreeNode* BinarySearchTree::copyTree(TreeNode* node) {
 
   // Copy node to new tree and recurse from left tree
   newNode->setRightChild(copyTree(node->getRightChild()));
-  
+
+  // Return the node for recursively setting its children
   return newNode;
 }
 
