@@ -68,6 +68,10 @@ int main(){
   // Print tree starting at root node
   rbt->print(rbt->getRoot());
 
+  // Print red and black nodes
+  rbt->printRedNodes(rbt->getRoot());
+  rbt->printBlackNodes(rbt->getRoot());
+
   // Delete tree
   delete rbt;
 

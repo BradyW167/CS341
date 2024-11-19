@@ -12,6 +12,10 @@ class RedBlackTree : public BinarySearchTree {
     // Insert new tree node with input data
     virtual void insert(int) override;
 
+    void printRedNodes(TreeNode * root);
+
+    void printBlackNodes(TreeNode * root);
+
   private:
     // Helper function for recursive insert calls
     TreeNode* insertHelper(TreeNode* root, TreeNode* node);
