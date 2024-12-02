@@ -214,7 +214,8 @@ void RedBlackTree::balanceColor(TreeNode* & root, TreeNode* & newNode) {
       }
 
       // If new node is left child...
-      else if(newNode = root->getLeftChild()) {
+      else if(newNode == root->getLeftChild()) {
+        std::cout << "New node is left child" << std::endl;
         rotateRight(grand, root); // Rotate parent to grandparent node
 
         // Fix coloring on rotated nodes
@@ -224,6 +225,7 @@ void RedBlackTree::balanceColor(TreeNode* & root, TreeNode* & newNode) {
 
       // If new node is right child...
       else if(newNode == root->getRightChild()) {
+        std::cout << "New node is right child" << std::endl;
         rotateLeft(root, newNode); // Rotate newNode to parent
         rotateRight(grand, newNode); // Rotate newNode to grandparent
 

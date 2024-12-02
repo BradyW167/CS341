@@ -21,7 +21,7 @@ void readFileToTree(std::string fileName, BinarySearchTree* tree) {
   if(file.is_open()){
     // Get first line from file
     std::getline(file, line);
-    
+
     // Initialize input string stream with first line
     std::istringstream iss(line);
 
@@ -88,7 +88,7 @@ int main(){
 
   RedBlackTree* rbtCopy = new RedBlackTree(*rbt); // Create rbt copy
 
-  // Print copied tree starting at root node
+  /* Print copied tree starting at root node
   std::cout << "\nPrinting copied red black tree..." << std::endl;
   rbtCopy->print(rbtCopy->getRoot());
   std::cout << std::endl;
@@ -101,6 +101,7 @@ int main(){
   std::cout << "\nPrinting black nodes preorder..." << std::endl;
   rbtCopy->printBlackNodes(rbtCopy->getRoot());
   std::cout << std::endl;
+  */
 
   // Delete red black trees
   delete rbt;

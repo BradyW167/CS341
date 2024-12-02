@@ -3,14 +3,14 @@ all: A5
 run: all
 	./A5
 
-A5: driver.o node.o TreeNode.o BST.o RBT.o
-	g++ driver.o node.o TreeNode.o BST.o RBT.o -o A5
+A5: driver.o Node.o TreeNode.o BST.o RBT.o
+	g++ driver.o Node.o TreeNode.o BST.o RBT.o -o A5
 
 driver.o: driver.cpp
 	g++ -c driver.cpp -o driver.o
 
-node.o: node.cpp
-	g++ -c node.cpp -o node.o
+Node.o: Node.cpp
+	g++ -c Node.cpp -o Node.o
 
 TreeNode.o: TreeNode.cpp
 	g++ -c TreeNode.cpp -o TreeNode.o
