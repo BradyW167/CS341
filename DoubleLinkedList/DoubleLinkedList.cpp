@@ -4,8 +4,7 @@
 DoubleLinkedList::DoubleLinkedList() : LinkedList() {}
 
 // Copy constructor
-DoubleLinkedList::DoubleLinkedList(const DoubleLinkedList* list)
-{
+DoubleLinkedList::DoubleLinkedList(const DoubleLinkedList* list) {
 	// Original list is empty, nothing to be copied
 	if(list->head_ == nullptr) {return;}
 
@@ -37,8 +36,7 @@ DoubleLinkedList::DoubleLinkedList(const DoubleLinkedList* list)
 DoubleLinkedList::~DoubleLinkedList() {}
 
 // Insert new node at input node with input data
-void DoubleLinkedList::insertLinkedNode(LinkedNode* node, int data)
-{
+void DoubleLinkedList::insertLinkedNode(LinkedNode* node, int data) {
 	// Insert at head if input node and head are null pointers
 	if(node == nullptr && head_ == nullptr)
 	{
@@ -72,14 +70,12 @@ void DoubleLinkedList::insertLinkedNode(LinkedNode* node, int data)
 }
 
 // Insert new node after input node with input data
-void DoubleLinkedList::insertAfterLinkedNode(LinkedNode * node, int data)
-{
+void DoubleLinkedList::insertAfterLinkedNode(LinkedNode * node, int data) {
   insertLinkedNode(node, data);
 }
 
 // Insert new node before input node with input data
-void DoubleLinkedList::insertBeforeLinkedNode(LinkedNode * node, int data)
-{
+void DoubleLinkedList::insertBeforeLinkedNode(LinkedNode * node, int data) {
 	// Return if input node is null
 	if(node == nullptr) {return;}
 
@@ -105,8 +101,7 @@ void DoubleLinkedList::insertBeforeLinkedNode(LinkedNode * node, int data)
 	insertLinkedNode(node->getPrevLinkedNode(), data);
 }
 
-void DoubleLinkedList::printList()
-{
+void DoubleLinkedList::printList() {
 	// State that list is being printed
 	std::cout << "\nPrinting List..." << std::endl;
 	// If list is empty
