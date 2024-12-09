@@ -5,15 +5,15 @@
 #include "LinkedList.h"
 
 int main(){
-	DoubleLinkedList* dlist = new DoubleLinkedList();
+	DoubleLinkedList* dll = new DoubleLinkedList();
 	
-	dlist->insert(HashEntry(2, 6));
-	dlist->insert(HashEntry(5, 295));
-	dlist->insert(HashEntry(7, 23));
+	dll->insert(HashEntry(2, 6));
+	dll->insert(HashEntry(5, 295));
+	dll->insert(HashEntry(7, 23));
 
-	dlist->printList();
+	dll->printList();
 
-	delete dlist;
+	delete dll;
 
 	return 0;
 }
