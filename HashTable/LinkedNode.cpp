@@ -7,7 +7,7 @@ LinkedNode::LinkedNode(HashEntry data, LinkedNode* nextLinkedNode, LinkedNode* p
 LinkedNode::LinkedNode(const LinkedNode & node)
 {
   // Copy data_ value to this node
-  setValue(node.getEntry().getValue());
+  getEntry().setValue(node.getEntry().getValue());
   prevLinkedNode_ = node.prevLinkedNode_;
   nextLinkedNode_ = node.nextLinkedNode_;
 }

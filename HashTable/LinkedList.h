@@ -11,7 +11,7 @@ class LinkedList
 		LinkedList();
 
 		// Copy constructor
-		LinkedList(const LinkedList & list);
+		LinkedList(const LinkedList* & list);
 
 		// Destructor
 		virtual ~LinkedList();
@@ -22,15 +22,22 @@ class LinkedList
 		// Returns the length of the list
 		int getLength();
 
-		// Insert data element into a node at tail
-		void insert(int element = -1);
+		// Insert hash entry data into a node at tail
+		void insert(HashEntry data);
 
 		// Return pointer to head node
-		LinkedNode* getHead() {return head_;}
+		inline LinkedNode* getHead() {return head_;}
+
+    // Set head of list to input linked node
+    inline void setHead(LinkedNode* head) {head_ = head;}
 
 		// Return pointer to tail node
 		LinkedNode* getTail() {return tail_;}
 		
+    // Set tail of list to input linked node
+    inline void setTail(LinkedNode* tail) {tail_ = tail;}
+
+
 		// Prints the list out in order from head to tail
 		virtual void printList();
 	protected:

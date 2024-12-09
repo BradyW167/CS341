@@ -13,7 +13,7 @@ class Node
 		virtual ~Node();
 
 		// Returns hash entry data
-		virtual HashEntry getEntry();
+		virtual HashEntry getEntry() const;
 
     // Sets hash entry data
     void setEntry(HashEntry data);
@@ -23,10 +23,10 @@ class Node
     // a key-value pair inside a hash entry
 		HashEntry data_;
 
-protected:
-  // Prevent valueless node from being created
-  // Default constructor
-  Node () {}
+  protected:
+    // Prevent valueless node from being created
+    // Default constructor
+    Node () {}
 };
 
 #endif

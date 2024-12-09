@@ -15,15 +15,17 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +14 HashEntry.h
-badd +26 HashEntry.cpp
-badd +64 DoubleLinkedList.cpp
-badd +4 DoubleLinkedList.h
-badd +19 node.h
-badd +13 node.cpp
+badd +40 HashEntry.h
+badd +37 HashEntry.cpp
+badd +108 DoubleLinkedList.cpp
+badd +6 DoubleLinkedList.h
+badd +16 node.h
+badd +10 node.cpp
 badd +9 LinkedNode.h
-badd +10 LinkedNode.cpp
-badd +16 makefile
+badd +7 LinkedNode.cpp
+badd +12 driver.cpp
+badd +102 LinkedList.cpp
+badd +36 LinkedList.h
 argglobal
 %argdel
 tabnew +setlocal\ bufhidden=wipe
@@ -32,7 +34,32 @@ tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabrewind
-edit HashEntry.h
+edit driver.cpp
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+balt HashEntry.h
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 12 - ((11 * winheight(0) + 18) / 36)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 12
+normal! 016|
+tabnext
+edit HashEntry.cpp
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -51,6 +78,27 @@ set winminwidth=0
 set winwidth=1
 wincmd =
 argglobal
+balt HashEntry.h
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 39 - ((26 * winheight(0) + 18) / 36)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 39
+normal! 053|
+wincmd w
+argglobal
+if bufexists(fnamemodify("HashEntry.h", ":p")) | buffer HashEntry.h | else | edit HashEntry.h | endif
+if &buftype ==# 'terminal'
+  silent file HashEntry.h
+endif
 balt HashEntry.cpp
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
@@ -62,33 +110,12 @@ setlocal fdn=20
 setlocal fen
 8
 normal! zo
-let s:l = 14 - ((13 * winheight(0) + 18) / 36)
+let s:l = 41 - ((22 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 14
-normal! 0
-wincmd w
-argglobal
-if bufexists(fnamemodify("HashEntry.cpp", ":p")) | buffer HashEntry.cpp | else | edit HashEntry.cpp | endif
-if &buftype ==# 'terminal'
-  silent file HashEntry.cpp
-endif
-balt HashEntry.h
-setlocal fdm=expr
-setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 10 - ((9 * winheight(0) + 18) / 36)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 10
-normal! 0
+keepjumps 41
+normal! 029|
 wincmd w
 wincmd =
 tabnext
@@ -125,7 +152,7 @@ if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 13
-normal! 019|
+normal! 051|
 wincmd w
 argglobal
 if bufexists(fnamemodify("node.h", ":p")) | buffer node.h | else | edit node.h | endif
@@ -143,12 +170,17 @@ setlocal fdn=20
 setlocal fen
 1
 normal! zo
-let s:l = 19 - ((18 * winheight(0) + 18) / 36)
+let s:l = 24 - ((23 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 19
-normal! 017|
+keepjumps 24
+let s:c = 20 - ((8 * winwidth(0) + 38) / 77)
+if s:c > 0
+  exe 'normal! ' . s:c . '|zs' . 20 . '|'
+else
+  normal! 020|
+endif
 wincmd w
 wincmd =
 tabnext
@@ -180,12 +212,12 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 10 - ((9 * winheight(0) + 18) / 36)
+let s:l = 7 - ((6 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 10
-normal! 026|
+keepjumps 7
+normal! 040|
 wincmd w
 argglobal
 if bufexists(fnamemodify("LinkedNode.h", ":p")) | buffer LinkedNode.h | else | edit LinkedNode.h | endif
@@ -203,12 +235,78 @@ setlocal fdn=20
 setlocal fen
 1
 normal! zo
-let s:l = 26 - ((25 * winheight(0) + 18) / 36)
+let s:l = 9 - ((8 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 26
+keepjumps 9
+normal! 013|
+wincmd w
+wincmd =
+tabnext
+edit LinkedList.cpp
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+wincmd =
+argglobal
+balt DoubleLinkedList.h
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+7
+normal! zo
+49
+normal! zo
+84
+normal! zo
+let s:l = 32 - ((16 * winheight(0) + 18) / 36)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 32
 normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("LinkedList.h", ":p")) | buffer LinkedList.h | else | edit LinkedList.h | endif
+if &buftype ==# 'terminal'
+  silent file LinkedList.h
+endif
+balt LinkedList.cpp
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+1
+normal! zo
+let s:l = 36 - ((29 * winheight(0) + 18) / 36)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 36
+normal! 03|
 wincmd w
 wincmd =
 tabnext
@@ -240,37 +338,35 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-7
+10
 normal! zo
-38
+52
 normal! zo
 79
 normal! zo
+81
+normal! zo
+91
+normal! zo
 106
 normal! zo
-107
+125
 normal! zo
-117
+150
 normal! zo
-132
-normal! zo
-149
-normal! zo
-175
-normal! zo
-let s:l = 46 - ((12 * winheight(0) + 18) / 36)
+let s:l = 108 - ((27 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 46
-normal! 047|
+keepjumps 108
+normal! 013|
 wincmd w
 argglobal
-if bufexists(fnamemodify("LinkedNode.cpp", ":p")) | buffer LinkedNode.cpp | else | edit LinkedNode.cpp | endif
+if bufexists(fnamemodify("DoubleLinkedList.h", ":p")) | buffer DoubleLinkedList.h | else | edit DoubleLinkedList.h | endif
 if &buftype ==# 'terminal'
-  silent file LinkedNode.cpp
+  silent file DoubleLinkedList.h
 endif
-balt node.cpp
+balt LinkedNode.cpp
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
 setlocal fmr={{{,}}}
@@ -279,67 +375,16 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 9 - ((8 * winheight(0) + 18) / 36)
+1
+normal! zo
+let s:l = 6 - ((5 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 9
-normal! 022|
+keepjumps 6
+normal! 0
 wincmd w
 wincmd =
-tabnext
-edit DoubleLinkedList.cpp
-argglobal
-setlocal fdm=expr
-setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-7
-normal! zo
-38
-normal! zo
-79
-normal! zo
-106
-normal! zo
-107
-normal! zo
-117
-normal! zo
-132
-normal! zo
-149
-normal! zo
-175
-normal! zo
-let s:l = 64 - ((17 * winheight(0) + 18) / 36)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 64
-normal! 03|
-tabnext
-edit makefile
-argglobal
-balt node.cpp
-setlocal fdm=expr
-setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 16 - ((15 * winheight(0) + 18) / 36)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 16
-normal! 019|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -347,6 +392,8 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)

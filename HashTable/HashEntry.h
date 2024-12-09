@@ -8,9 +8,14 @@
 #ifndef HASH_ENTRY_H
 #define HASH_ENTRY_H
 
+#include <iostream>
+
 class HashEntry
 {
 	public:
+    // Default Constructor
+    HashEntry();
+
     // Constructor with input key-value pair
 		HashEntry(int key, int value);
 
@@ -27,7 +32,13 @@ class HashEntry
     int getValue();
 
     // Sets the value of this entry
-    void setValue();
+    void setValue(int key);
+
+    // Overload operator<< to print hash entry data
+    friend std::ostream& operator<<(std::ostream&, const HashEntry&);
+
+    // Overload operator== to compare hash entries
+    bool operator==(const HashEntry& entry) const;
 
 	protected:
 		// Stores this node's key

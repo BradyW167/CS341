@@ -23,6 +23,6 @@ LinkedList.o: LinkedList.cpp
 
 DoubleLinkedList.o: DoubleLinkedList.cpp
 	g++ -c DoubleLinkedList.cpp -o DoubleLinkedList.o
-	
+
 clean:
-	rm -rf *.o A6
+	rm -rf *.o A6 A6.exe
