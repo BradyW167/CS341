@@ -258,9 +258,9 @@ int Dictionary::select(int k, int bit){
 // Print the lookup table with an output stream
 void Dictionary::printLookupTable(std::ostream & os){
 	for(int i = 0; i < DICTIONARY_SIZE; i++){
-		os << "(" << i << ", " << lookupTable_[i] << ")" << std::endl;
+		os << "(" << i << "," << lookupTable_[i] << ")" << std::endl;
 		if(i == DICTIONARY_SIZE - 1){
-			os << "(" << i << ", " << lookupTable_[i] << ")";
+			os << "(" << i << "," << lookupTable_[i] << ")";
 		}
 	}
 }

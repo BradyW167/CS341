@@ -93,7 +93,7 @@ int main(){
 	std::cout << "\nSelect Range(5,10,2,1): " << E.select_range(5,10,2,1) << std::endl;
 	std::cout << "\nSelect Range(2,7,2,0): " << E.select_range(2,7,2,0) << std::endl;
 
-  std::ofstream outFile("output.txt");
+  std::ofstream outFile("dictionary.txt");
 
   if (!outFile) {
       std::cerr << "Failed to open the file.\n";
