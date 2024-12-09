@@ -7,7 +7,7 @@ DoubleLinkedList::DoubleLinkedList() : LinkedList() {}
 DoubleLinkedList::~DoubleLinkedList() {}
 
 // Insert new node at input node with input hash entry
-void DoubleLinkedList::insertLinkedNode (LinkedNode* node, HashEntry data) {
+void DoubleLinkedList::insertLinkedNode(LinkedNode* node, HashEntry data) {
 	// Insert at head if input node and head are null pointers
 	if(node == nullptr && head_ == nullptr)
 	{
@@ -76,7 +76,7 @@ void DoubleLinkedList::insertBeforeLinkedNode(LinkedNode * node, HashEntry data)
 	insertLinkedNode(node->getPrevLinkedNode(), data);
 }
 
-void DoubleLinkedList::remove (HashEntry data) {
+void DoubleLinkedList::remove(HashEntry data) {
   // If list is empty, print and return
   if (isEmpty()) {
     std::cout << "List is empty" << std::endl;
@@ -144,18 +144,28 @@ void DoubleLinkedList::remove (HashEntry data) {
         else {curNode = curNode->getNextLinkedNode();}
       }
     }
+    // If a matching node was found...
+    if (isFound) {
+      nodecount_--; // Decrement node counter
+      std::cout << "\nDeleted node " << data << std::endl;
+    }
+    // Else node was not found
+    else {
+      std::cout << "\n Node with entry " << data <<" not found" << std::endl;
+    }
   }
 }
 
-void DoubleLinkedList::printList ()
-{
+void DoubleLinkedList::printList() {
 	// State that list is being printed
 	std::cout << "\nPrinting List..." << std::endl;
+
 	// If list is empty
 	if (isEmpty()) {std::cout << "List is empty" << std::endl;}
 
 	// Stores pointer to head node
 	LinkedNode* n = head_;
+
 	// Loop until on last node (has no next node)
 	while (n->hasNextLinkedNode()) {
 		// Print node n's entry
@@ -165,6 +175,6 @@ void DoubleLinkedList::printList ()
 	}
 	// Print tail node's value
 	std::cout << n->getEntry() << std::endl;
-  	// Print length of list
-  	std::cout << "Length: " << nodecount_ << std::endl;
+  // Print length of list
+  std::cout << "Length: " << nodecount_ << std::endl;
 }

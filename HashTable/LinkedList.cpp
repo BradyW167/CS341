@@ -81,6 +81,81 @@ void LinkedList::insert(HashEntry data)
   	nodecount_++;
 }
 
+void LinkedList::remove(HashEntry data) {
+  // If list is empty, print and return
+  if (isEmpty()) {
+    std::cout << "List is empty" << std::endl;
+    return;
+  }
+  // Else search for linked node using hash entry data
+  else {
+    // Tracks if matching hash entry key is found
+    bool isFound = false;
+
+    // If data is found in the head node...
+    if (data == LinkedList::getHead()->getEntry()) {
+      LinkedNode* oldHead = getHead(); // Get pointer to head node
+      LinkedNode* newHead = getHead()->getNextLinkedNode(); // Get pointer to head node's next node
+
+      setHead(newHead);
+
+      // Break the pointer...
+      oldHead->setNextLinkedNode(nullptr);
+
+      delete oldHead;
+
+      isFound = true;
+    }
+    // If data is found in the tail node...
+    else if(data == getTail()->getEntry()) {
+      LinkedNode* oldTail = LinkedList::getTail(); // Get pointer to head node
+      LinkedNode* newTail = LinkedList::getTail()->getPrevLinkedNode(); // Get pointer to head node's next node
+
+      LinkedList::setTail(newTail);
+
+      // Break the pointer
+      newTail->setNextLinkedNode(nullptr);
+
+      delete oldTail;
+
+      isFound = true;
+    }
+    // Else search for data inside the DLL...
+    else {
+      LinkedNode* curNode = getHead(); // Stores current node, starting at head
+
+      // Loop until at nullptr (end of list) or node with matching data is found
+      while (curNode != nullptr && !isFound) {
+        // If current node's entry matches input data...
+        if (curNode->getEntry() == data) {
+          LinkedNode* nextNode = curNode->getNextLinkedNode();
+          LinkedNode* prevNode = curNode->getPrevLinkedNode();
+
+          // Reset pointer to account for removed node
+          prevNode->setNextLinkedNode(nextNode);
+
+          // Break the pointer
+          curNode->setNextLinkedNode(nullptr);
+
+          delete curNode;
+
+          isFound = true;
+        }
+        // Else get next node
+        else {curNode = curNode->getNextLinkedNode();}
+      }
+    }
+    // If a matching node was found...
+    if (isFound) {
+      nodecount_--; // Decrement node counter
+      std::cout << "\nDeleted node " << data << std::endl;
+    }
+    // Else node was not found
+    else {
+      std::cout << "\n Node with entry " << data <<" not found" << std::endl;
+    }
+  }
+}
 void LinkedList::printList()
 {
 	// State that list is being printed
@@ -94,12 +169,12 @@ void LinkedList::printList()
 	while(n->hasNextLinkedNode())
 	{
 		// Print node n's value
-		std::cout << n->getEntry().getValue() << "->";
+		std::cout << n->getEntry() << "->";
 		// Store next node in n
 		n = n->getNextLinkedNode();
 	}
 	// Print tail node's value
-	std::cout << n->getEntry().getValue() << std::endl;
+	std::cout << n->getEntry() << std::endl;
   	// Print length of list
   	std::cout << "Length: " << nodecount_ << std::endl;
 }

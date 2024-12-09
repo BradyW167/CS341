@@ -25,6 +25,9 @@ class LinkedList
 		// Insert hash entry data into a node at tail
 		void insert(HashEntry data);
 
+    // Remove node with data from input hash entry
+    virtual void remove(HashEntry data);
+
 		// Return pointer to head node
 		inline LinkedNode* getHead() {return head_;}
 
@@ -37,9 +40,9 @@ class LinkedList
     // Set tail of list to input linked node
     inline void setTail(LinkedNode* tail) {tail_ = tail;}
 
-
 		// Prints the list out in order from head to tail
 		virtual void printList();
+
 	protected:
 		// Stores pointer to the head node of the list
 		LinkedNode* head_;
