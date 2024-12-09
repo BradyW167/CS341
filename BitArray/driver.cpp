@@ -8,8 +8,9 @@
 #include "set.h"
 #include "dictionary.h"
 
-#include <string>
+#include <fstream>
 #include <iostream>
+#include <string>
 
 int main(){
 	std::string word1 = "brady";
@@ -92,7 +93,14 @@ int main(){
 	std::cout << "\nSelect Range(5,10,2,1): " << E.select_range(5,10,2,1) << std::endl;
 	std::cout << "\nSelect Range(2,7,2,0): " << E.select_range(2,7,2,0) << std::endl;
 
-	E.printLookupTable(std::cout);
+  std::ofstream outFile("output.txt");
+
+  if (!outFile) {
+      std::cerr << "Failed to open the file.\n";
+      return 1;
+  }
+
+	E.printLookupTable(outFile);
 
 	return 0;
 }
