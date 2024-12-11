@@ -1,14 +1,16 @@
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <string>
 
 #include "DoubleLinkedList.h"
 #include "HashEntry.h"
+#include "HashTableArray.h"
 
 int main(){
-	DoubleLinkedList* dll = new DoubleLinkedList(); // Create list to store data
+  HashTableArray* table = new HashTableArray(6);
 
-  std::ifstream dataFile("dictionary.txt");
+  std::ifstream dataFile("duplicates.txt");
 
   if (!dataFile) {
       std::cerr << "Failed to open data file\n";
@@ -19,22 +21,18 @@ int main(){
 
   // Loop through each line in file and store it in line
   while (std::getline(dataFile, line)) {
-    size_t commaPos = line.find(','); // Get position of ','
+    std::stringstream ss(line); // Open stringstream with line input
 
-    // Split line into key and value strings
-    std::string stringKey = line.substr(1, commaPos);
-    std::string stringValue = line.substr(commaPos + 1, line.size() - 1);
+    int key = 0, value = 0; // Split line into key and value strings
 
-    // Convert strings to integers
-    int key = std::stoi(stringKey);
-    int value = std::stoi(stringValue);
+    ss >> key >> value; // Read number values from string stream into key and value
 
-    dll->insert(HashEntry(key, value));
+    table->insert(key, value); // Insert hash entry into hash table with key-value input
   }
 
-	dll->printList();
+	table->print();
 
-	delete dll;
+	delete table;
 
 	return 0;
 }

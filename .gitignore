@@ -1,6 +1,9 @@
 # Ignore Assembler Project
 /Assembler/
 
+# Ignore Valgrind files
+val.txt
+
 # Prerequisites
 *.d
 

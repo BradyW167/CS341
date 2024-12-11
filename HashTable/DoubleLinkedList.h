@@ -25,8 +25,11 @@ class DoubleLinkedList : public LinkedList
 		// Insert new node before input node with input data
 		void insertBeforeLinkedNode(LinkedNode* node, HashEntry data);
 
+    // Return the value of the entry stored in this node
+    int find(int key);
+
     // Remove node with data from input hash entry
-    void remove(HashEntry data) override;
+    void removeLinkedNode(HashEntry data);
 
 		// Print the double linked list
 		void printList() override;

@@ -8,10 +8,10 @@
 #include "HashEntry.h"
 
 // Default Constructor
-HashEntry::HashEntry() : key_(-1), value_(-1) {}
+HashEntry::HashEntry() : key_(-1), value_(-1), status_(Status::EMPTY) {}
 
 // Constructor with input key-value pair
-HashEntry::HashEntry(int key, int value) : key_(key), value_(value) {}
+HashEntry::HashEntry(int key, int value) : key_(key), value_(value), status_(Status::OCCUPIED) {}
 
 // Destructor
 HashEntry::~HashEntry() {}
@@ -27,6 +27,12 @@ int HashEntry::getValue() {return value_;}
 
 // Sets the data_ value
 void HashEntry::setValue(int value) {value_ = value;}
+
+// Returns the status of this entry
+HashEntry::Status HashEntry::getStatus() {return status_;}
+
+// Sets the status of this entry
+void HashEntry::setStatus(HashEntry::Status status) {status_ = status;}
 
 // Overload the << operator to print hash entry data
 std::ostream& operator<<(std::ostream& os, const HashEntry& entry) {

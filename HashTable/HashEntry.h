@@ -13,6 +13,9 @@
 class HashEntry
 {
 	public:
+    // Define the Status enum and its possible values
+    enum Status {EMPTY, OCCUPIED, REMOVED};
+
     // Default Constructor
     HashEntry();
 
@@ -34,17 +37,24 @@ class HashEntry
     // Sets the value of this entry
     void setValue(int key);
 
+    // Returns the status of this entry
+    Status getStatus();
+
+    // Sets the status of this entry
+    void setStatus(Status status);
+
     // Overload operator<< to print hash entry data
     friend std::ostream& operator<<(std::ostream&, const HashEntry&);
 
     // Overload operator== to compare hash entries
     bool operator==(const HashEntry& entry) const;
 
-	protected:
-		// Stores this node's key
-		int key_;
-    // Stores this node's value
-    int value_;
+	private:
+		int key_; // Stores this node's key
+
+    int value_; // Stores this node's value
+
+    Status status_;
 };
 
 #endif

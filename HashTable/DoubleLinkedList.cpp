@@ -76,7 +76,25 @@ void DoubleLinkedList::insertBeforeLinkedNode(LinkedNode * node, HashEntry data)
 	insertLinkedNode(node->getPrevLinkedNode(), data);
 }
 
-void DoubleLinkedList::remove(HashEntry data) {
+int DoubleLinkedList::find(int key) {
+  // Stores current node, starting at head
+  LinkedNode* curNode = LinkedList::getHead();
+
+  // Loop until at nullptr (end of list)
+  while (curNode != nullptr) {
+    // If current node's entry matches input data...
+    if (curNode->getEntry().getKey() == key) {
+      return curNode->getEntry().getValue(); // Return value of node's entry with matching key
+    }
+    // Else get next node
+    else {curNode = curNode->getNextLinkedNode();}
+  }
+
+  // Matching node is not found
+  return -1;
+}
+
+void DoubleLinkedList::removeLinkedNode(HashEntry data) {
   // If list is empty, print and return
   if (isEmpty()) {
     std::cout << "List is empty" << std::endl;
