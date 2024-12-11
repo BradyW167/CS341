@@ -15,22 +15,63 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +16 HashEntry.h
-badd +39 HashEntry.cpp
-badd +159 DoubleLinkedList.cpp
-badd +30 DoubleLinkedList.h
-badd +20 driver.cpp
-badd +1 LinkedList.cpp
-badd +43 LinkedList.h
-badd +77 ../Assembler/driver.cpp
-badd +243 ../BitArray/dictionary.cpp
+badd +44 HashEntry.h
+badd +15 HashEntry.cpp
+badd +1 DoubleLinkedList.cpp
+badd +17 DoubleLinkedList.h
+badd +168 driver.cpp
+badd +20 HashTableArray.h
+badd +51 HashTableArray.cpp
 argglobal
 %argdel
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
-tabnew +setlocal\ bufhidden=wipe
 tabrewind
 edit driver.cpp
+argglobal
+balt HashEntry.h
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+13
+normal! zo
+17
+normal! zo
+23
+normal! zo
+72
+normal! zo
+87
+normal! zo
+99
+normal! zo
+109
+normal! zo
+115
+normal! zo
+121
+normal! zo
+133
+normal! zo
+142
+normal! zo
+157
+normal! zo
+163
+normal! zo
+let s:l = 168 - ((25 * winheight(0) + 18) / 36)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 168
+normal! 041|
+tabnext
+edit HashTableArray.cpp
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -49,7 +90,7 @@ set winminwidth=0
 set winwidth=1
 wincmd =
 argglobal
-balt HashEntry.h
+balt HashTableArray.h
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
 setlocal fmr={{{,}}}
@@ -58,19 +99,41 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-8
+12
 normal! zo
-let s:l = 20 - ((19 * winheight(0) + 33) / 67)
+26
+normal! zo
+28
+normal! zo
+46
+normal! zo
+65
+normal! zo
+67
+normal! zo
+80
+normal! zo
+85
+normal! zo
+100
+normal! zo
+80
+normal! zo
+87
+normal! zo
+111
+normal! zo
+let s:l = 51 - ((31 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 20
-normal! 056|
+keepjumps 51
+normal! 011|
 wincmd w
 argglobal
-if bufexists(fnamemodify("../Assembler/driver.cpp", ":p")) | buffer ../Assembler/driver.cpp | else | edit ../Assembler/driver.cpp | endif
+if bufexists(fnamemodify("HashTableArray.h", ":p")) | buffer HashTableArray.h | else | edit HashTableArray.h | endif
 if &buftype ==# 'terminal'
-  silent file ../Assembler/driver.cpp
+  silent file HashTableArray.h
 endif
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
@@ -80,12 +143,14 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 82 - ((19 * winheight(0) + 33) / 67)
+1
+normal! zo
+let s:l = 20 - ((7 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 82
-normal! 03|
+keepjumps 20
+normal! 045|
 wincmd w
 wincmd =
 tabnext
@@ -108,7 +173,6 @@ set winminwidth=0
 set winwidth=1
 wincmd =
 argglobal
-balt ../BitArray/dictionary.cpp
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
 setlocal fmr={{{,}}}
@@ -117,78 +181,19 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 13 - ((12 * winheight(0) + 33) / 67)
+let s:l = 24 - ((20 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 13
-normal! 040|
-wincmd w
-argglobal
-if bufexists(fnamemodify("HashEntry.cpp", ":p")) | buffer HashEntry.cpp | else | edit HashEntry.cpp | endif
-if &buftype ==# 'terminal'
-  silent file HashEntry.cpp
-endif
-balt HashEntry.h
-setlocal fdm=expr
-setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 1 - ((0 * winheight(0) + 33) / 67)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 1
+keepjumps 24
 normal! 0
 wincmd w
-wincmd =
-tabnext
-edit DoubleLinkedList.cpp
-let s:save_splitbelow = &splitbelow
-let s:save_splitright = &splitright
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-let &splitbelow = s:save_splitbelow
-let &splitright = s:save_splitright
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
-wincmd =
 argglobal
-balt driver.cpp
-setlocal fdm=expr
-setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-159
-normal! zo
-let s:l = 159 - ((41 * winheight(0) + 33) / 67)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 159
-normal! 032|
-wincmd w
-argglobal
-if bufexists(fnamemodify("DoubleLinkedList.h", ":p")) | buffer DoubleLinkedList.h | else | edit DoubleLinkedList.h | endif
+if bufexists(fnamemodify("HashEntry.h", ":p")) | buffer HashEntry.h | else | edit HashEntry.h | endif
 if &buftype ==# 'terminal'
-  silent file DoubleLinkedList.h
+  silent file HashEntry.h
 endif
+balt HashEntry.cpp
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
 setlocal fmr={{{,}}}
@@ -197,93 +202,17 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-1
+8
 normal! zo
-let s:l = 17 - ((16 * winheight(0) + 33) / 67)
+let s:l = 44 - ((26 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 17
-normal! 0
+keepjumps 44
+normal! 034|
 wincmd w
 wincmd =
-tabnext
-edit LinkedList.cpp
-let s:save_splitbelow = &splitbelow
-let s:save_splitright = &splitright
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-let &splitbelow = s:save_splitbelow
-let &splitright = s:save_splitright
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
-wincmd =
-argglobal
-balt DoubleLinkedList.h
-setlocal fdm=expr
-setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-7
-normal! zo
-49
-normal! zo
-84
-normal! zo
-86
-normal! zo
-96
-normal! zo
-110
-normal! zo
-128
-normal! zo
-159
-normal! zo
-let s:l = 63 - ((62 * winheight(0) + 33) / 67)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 63
-normal! 011|
-wincmd w
-argglobal
-if bufexists(fnamemodify("LinkedList.h", ":p")) | buffer LinkedList.h | else | edit LinkedList.h | endif
-if &buftype ==# 'terminal'
-  silent file LinkedList.h
-endif
-balt LinkedList.cpp
-setlocal fdm=expr
-setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-1
-normal! zo
-let s:l = 30 - ((29 * winheight(0) + 33) / 67)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 30
-normal! 0
-wincmd w
-wincmd =
-tabnext 1
+tabnext 2
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif

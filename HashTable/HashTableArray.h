@@ -9,8 +9,9 @@
 
 class HashTableArray : public HashTable {
 	public:
-		// Constructor
-		HashTableArray(size_t size);
+		// Constructor with input size and probing type
+    // Default to linear probing, set false for quadratic
+		HashTableArray(size_t size, bool isLinearProbing = true);
 
 		// Destructor
 		~HashTableArray();
@@ -18,13 +19,8 @@ class HashTableArray : public HashTable {
 		// Inserts a new key-value pair into the hash table
 		void insert(int key, int value) override;
 
-    // Insert helper function
-    void insertHelper(HashEntry entry, int index);
-
-    // Insert helper function
-    void insertQuadraticHelper(HashEntry entry, int index);
-
 		// Searches for a Hash Entry, based upon the key from the Hash Table
+    // Returns value of matching key if found
 		int search(int key) override;
 
 		// Removes a Hash Entry, based upon the key from the Hash Table
@@ -39,7 +35,7 @@ class HashTableArray : public HashTable {
     // Get probing type
     inline bool isLinear() {return isLinearProbing_;}
 
-    // Return true if table is full
+    // Return true if table is full, false if not
     inline bool isFull() {return (entryCount_ == size_);}
 
   private:
