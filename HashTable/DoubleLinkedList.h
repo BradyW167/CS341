@@ -1,3 +1,10 @@
+// Honor Pledge:
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
+
 #ifndef DOUBLE_LINKED_LIST_H
 #define DOUBLE_LINKED_LIST_H
 
@@ -28,11 +35,14 @@ class DoubleLinkedList : public LinkedList
     // Return the value of the entry stored in this node
     int find(int key);
 
-    // Remove node with data from input hash entry
-    void removeLinkedNode(HashEntry data);
+    // Remove node with matching input key
+    void removeLinkedNode(int key);
 
 		// Print the double linked list
 		void printList() override;
+
+    // Overload operator<< to print the DLL data to an output stream
+    friend std::ostream& operator<<(std::ostream&, const DoubleLinkedList&);
 };
 
 #endif

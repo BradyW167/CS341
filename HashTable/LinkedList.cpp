@@ -1,3 +1,10 @@
+// Honor Pledge:
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
+
 #include "LinkedList.h"
 
 // Default constructor
@@ -32,28 +39,25 @@ LinkedList::LinkedList(const LinkedList* & list) {
 }
 
 // Destructor
-LinkedList::~LinkedList()
-{
+LinkedList::~LinkedList() {
 	// Delete head if head is not null
 	// Recursion takes care of the rest
 	if(head_ != nullptr) {delete head_;}
 }
 
 // Returns true if list is empty, false if not
-bool LinkedList::isEmpty() {return (head_ == nullptr) ? true : false;}
+bool LinkedList::isEmpty() const {return (head_ == nullptr) ? true : false;}
 
 // Returns nodecount (number of nodes)
 int LinkedList::getLength() {return nodecount_;}
 
 // Insert data element into node at tail
-void LinkedList::insert(HashEntry data)
-{
+void LinkedList::insert(HashEntry data) {
 	// Print out element to be inserted
-	std::cout << "Inserting node with entry " << data << "..." << std::endl;
+	// std::cout << "Inserting node with entry " << data << "..." << std::endl;
 
 	// If list is empty
-	if(isEmpty())
-	{
+	if(isEmpty()) {
 		// Store hash entry data in first node as head_
 		head_ = new LinkedNode(data);
 		// Since this is first node, it is both the head and the tail
@@ -67,8 +71,7 @@ void LinkedList::insert(HashEntry data)
 	LinkedNode* n = head_;
 	
 	// Loop until on last node (has no next node)
-	while(n->hasNextLinkedNode())
-	{
+	while(n->hasNextLinkedNode()) {
 		// Stores next node in n
 		n = n->getNextLinkedNode();
 	}
@@ -107,7 +110,7 @@ void LinkedList::remove(HashEntry data) {
       isFound = true;
     }
     // If data is found in the tail node...
-    else if(data == getTail()->getEntry()) {
+    else if (data == getTail()->getEntry()) {
       LinkedNode* oldTail = LinkedList::getTail(); // Get pointer to head node
       LinkedNode* newTail = LinkedList::getTail()->getPrevLinkedNode(); // Get pointer to head node's next node
 
@@ -156,8 +159,8 @@ void LinkedList::remove(HashEntry data) {
     }
   }
 }
-void LinkedList::printList()
-{
+
+void LinkedList::printList() {
 	// State that list is being printed
 	std::cout << "\nPrinting List..." << std::endl;
 	// If list is empty
@@ -166,8 +169,7 @@ void LinkedList::printList()
 	// Stores pointer to head node
 	LinkedNode* n = head_;
 	// Loop until on last node (has no next node)
-	while(n->hasNextLinkedNode())
-	{
+	while (n->hasNextLinkedNode()) {
 		// Print node n's value
 		std::cout << n->getEntry() << "->";
 		// Store next node in n
@@ -175,6 +177,6 @@ void LinkedList::printList()
 	}
 	// Print tail node's value
 	std::cout << n->getEntry() << std::endl;
-  	// Print length of list
-  	std::cout << "Length: " << nodecount_ << std::endl;
+  // Print length of list
+  std::cout << "Length: " << nodecount_ << std::endl;
 }

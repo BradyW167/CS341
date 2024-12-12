@@ -1,7 +1,14 @@
+// Honor Pledge:
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
+
 #include "HashTableArray.h"
 
 // Constructor
-HashTableArray::HashTableArray(size_t size, bool isLinearProbing) : entry_(new HashEntry[size]), entryCount_(0), size_(size), isLinearProbing_(isLinearProbing) {}
+HashTableArray::HashTableArray(size_t size, bool isLinearProbing) : entry_(new HashEntry[size]), needRehash_(false), entryCount_(0), size_(size), isLinearProbing_(isLinearProbing) {}
 
 // Destructor
 HashTableArray::~HashTableArray() {
@@ -16,7 +23,13 @@ void HashTableArray::insert(int key, int value) {
 
   // If hash table is full...
   if (isFull()) {
-    std::cout << "\nHash table is full, entry (" << key << "," << value << ") not inserted" << std::endl;
+    needRehash_ = true;
+
+    std::cout << "\nHash table is full, rehash" << std::endl; // Print table is full
+
+    std::cout << "\nKey unpositioned: " << key << std::endl; // Print unpositioned key
+
+
     return; // Return after failed insertion
   }
 
@@ -24,8 +37,9 @@ void HashTableArray::insert(int key, int value) {
 
   // If probing type is linear...
   if(isLinearProbing_) {
-    // Loop 
-    while (probeNum < size_) {
+    // Loop infinitely, the table is not full
+    // Return once empty entry is found
+    while (true) {
       int rehashIndex = (index + probeNum) % size_; // Rehash index for insertion
 
       // If hash entry at rehashed index is empty...
@@ -43,8 +57,22 @@ void HashTableArray::insert(int key, int value) {
   }
   // Else probing type is quadratic
   else {
-    while (probeNum < size_) {
+    // Loop infinitely, the table is not full
+    // Return once empty entry is found
+    while (true) {
       int rehashIndex = (index + (probeNum * probeNum)) % size_; // Rehash index for insertion
+
+      // If probeNum is greater than size of table,
+      // hash function is looping between values
+      if (probeNum > size_) {
+        std::cout << "\nQuadratic hash function is looping over filled entries (try a prime number for table size)" << std::endl;
+
+        std::cout << "\nKey unpositioned: " << newEntry.getKey() << std::endl; // Print unpositioned key
+
+        needRehash_ = true;
+
+        return; // Return after failed insertion
+      }
 
       // If hash entry at rehashed index is empty...
       if (entry_[rehashIndex].getStatus() == HashEntry::EMPTY) {
@@ -97,12 +125,13 @@ void HashTableArray::remove(int key) {
 
       isFound = true; // Entry was found
 
+      entryCount_--; // Decrement entry counter
+
       break; // Break from for loop
     }
   }
   // If matching key was found...
   if (isFound) {std::cout << "\nKey " << key << " was removed" << std::endl;}
-
   // Else matching key was not found
   else {std::cout << "\nInvalid key, " << key << " not found in table" << std::endl;}
 }
@@ -111,7 +140,7 @@ void HashTableArray::remove(int key) {
 void HashTableArray::print() {
   int key = 0; // Stores key of a hash entry
 
-	std::cout << "\n********************" << std::endl;
+	std::cout << "\n***********************************" << std::endl;
 
   // Loop through each index in hash table
   for(int i = 0; i < size_ - 1; i++) {
@@ -124,5 +153,5 @@ void HashTableArray::print() {
 
   std::cout << "[" << size_ - 1 << "]: " << ((key == -1) ? "" : std::to_string(key)); // Print final entry
 
-	std::cout << "\n********************" << std::endl;
+	std::cout << "\n***********************************" << std::endl;
 }

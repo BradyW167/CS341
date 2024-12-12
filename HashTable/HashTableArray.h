@@ -1,3 +1,10 @@
+// Honor Pledge:
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
+
 #ifndef HASHTABLEARRAY_H
 #define HASHTABLEARRAY_H
 
@@ -29,6 +36,9 @@ class HashTableArray : public HashTable {
 		// Prints the contents of the Hash Table
 		void print() override;
 
+    // Return true if rehash is needed, false if not
+    inline bool getNeedRehash() override {return needRehash_;}
+
     // Set probing type
     inline void setLinear(bool isLinearProbing) {isLinearProbing_ = isLinearProbing;}
 
@@ -40,6 +50,8 @@ class HashTableArray : public HashTable {
 
   private:
     HashEntry* entry_; // Stores pointer to an array of hash entries
+
+    bool needRehash_; // True if rehash is needed, false if not
 
     size_t entryCount_; // Stores number of hash entries in hash table
 

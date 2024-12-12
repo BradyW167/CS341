@@ -3,8 +3,8 @@ all: A6
 run: all
 	./A6
 
-A6: driver.o HashEntry.o Node.o LinkedNode.o LinkedList.o DoubleLinkedList.o HashTableArray.o HashTableCuckoo.o
-	g++ driver.o HashEntry.o Node.o LinkedNode.o LinkedList.o DoubleLinkedList.o HashTableArray.o HashTableCuckoo.o -o A6
+A6: driver.o HashEntry.o Node.o LinkedNode.o LinkedList.o DoubleLinkedList.o HashTableArray.o HashTableCuckoo.o HashTableChaining.o
+	g++ driver.o HashEntry.o Node.o LinkedNode.o LinkedList.o DoubleLinkedList.o HashTableArray.o HashTableCuckoo.o HashTableChaining.o -o A6
 
 driver.o: driver.cpp
 	g++ -c driver.cpp -o driver.o
@@ -29,6 +29,9 @@ HashTableArray.o: HashTableArray.cpp
 
 HashTableCuckoo.o: HashTableCuckoo.cpp
 	g++ -c HashTableCuckoo.cpp -o HashTableCuckoo.o
+
+HashTableChaining.o: HashTableChaining.cpp
+	g++ -c HashTableChaining.cpp -o HashTableChaining.o
 
 clean:
 	rm -rf *.o A6 A6.exe

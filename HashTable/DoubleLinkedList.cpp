@@ -1,3 +1,10 @@
+// Honor Pledge:
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
+
 #include "DoubleLinkedList.h"
 
 // Default constructor
@@ -94,34 +101,44 @@ int DoubleLinkedList::find(int key) {
   return -1;
 }
 
-void DoubleLinkedList::removeLinkedNode(HashEntry data) {
-  // If list is empty, print and return
-  if (isEmpty()) {
-    std::cout << "List is empty" << std::endl;
-    return;
-  }
-  // Else search for linked node using hash entry data
+void DoubleLinkedList::removeLinkedNode(int key) {
+  // If list is empty, return
+  if (LinkedList::isEmpty()) {return;}
+  // Else search for linked node using input key
   else {
     // Tracks if matching hash entry key is found
     bool isFound = false;
 
     // If data is found in the head node...
-    if (data == LinkedList::getHead()->getEntry()) {
-      LinkedNode* oldHead = LinkedList::getHead(); // Get pointer to head node
-      LinkedNode* newHead = LinkedList::getHead()->getNextLinkedNode(); // Get pointer to head node's next node
+    if (key == LinkedList::getHead()->getEntry().getKey()) {
+      // If head node is only node
+      if (LinkedList::getLength() == 1) {
+        // Delete head
+        delete (LinkedList::getHead());
 
-      LinkedList::setHead(newHead);
+        // Set pointers to nullptr
+        LinkedList::setHead(nullptr);
+        LinkedList::setTail(nullptr);
+      }
+      // Else there are more nodes...
+      else {
+        LinkedNode* oldHead = LinkedList::getHead(); // Get pointer to head node
+        LinkedNode* newHead = LinkedList::getHead()->getNextLinkedNode(); // Get pointer to head node's next node
 
-      // Break the pointers...
-      oldHead->setNextLinkedNode(nullptr);
-      newHead->setPrevLinkedNode(nullptr);
+        LinkedList::setHead(newHead);
 
-      delete oldHead;
+        // Break the pointers...
+        oldHead->setNextLinkedNode(nullptr);
+        newHead->setPrevLinkedNode(nullptr);
 
-      isFound = true;
+        delete oldHead; // Delete head
+      }
+
+
+      isFound = true; // Matching key was found
     }
-    // If data is found in the tail node...
-    else if(data == LinkedList::getTail()->getEntry()) {
+    // If key is found in the tail node...
+    else if(key == LinkedList::getTail()->getEntry().getKey()) {
       LinkedNode* oldTail = LinkedList::getTail(); // Get pointer to head node
       LinkedNode* newTail = LinkedList::getTail()->getPrevLinkedNode(); // Get pointer to head node's next node
 
@@ -141,8 +158,8 @@ void DoubleLinkedList::removeLinkedNode(HashEntry data) {
 
       // Loop until at nullptr (end of list) or node with matching data is found
       while (curNode != nullptr && !isFound) {
-        // If current node's entry matches input data...
-        if (curNode->getEntry() == data) {
+        // If key is found in the current node...
+        if (key == curNode->getEntry().getKey()) {
           LinkedNode* nextNode = curNode->getNextLinkedNode();
           LinkedNode* prevNode = curNode->getPrevLinkedNode();
 
@@ -163,14 +180,7 @@ void DoubleLinkedList::removeLinkedNode(HashEntry data) {
       }
     }
     // If a matching node was found...
-    if (isFound) {
-      nodecount_--; // Decrement node counter
-      std::cout << "\nDeleted node " << data << std::endl;
-    }
-    // Else node was not found
-    else {
-      std::cout << "\n Node with entry " << data <<" not found" << std::endl;
-    }
+    if (isFound) {nodecount_--;} // Decrement node counter
   }
 }
 
@@ -178,8 +188,11 @@ void DoubleLinkedList::printList() {
 	// State that list is being printed
 	std::cout << "\nPrinting List..." << std::endl;
 
-	// If list is empty
-	if (isEmpty()) {std::cout << "List is empty" << std::endl;}
+	// If list is empty...
+	if (LinkedList::isEmpty()) {
+    std::cout << std::endl; // Print nextline character only
+    return;
+  }
 
 	// Stores pointer to head node
 	LinkedNode* n = head_;
@@ -187,12 +200,34 @@ void DoubleLinkedList::printList() {
 	// Loop until on last node (has no next node)
 	while (n->hasNextLinkedNode()) {
 		// Print node n's entry
-		std::cout << n->getEntry() << "<-->";
+		std::cout << n->getEntry().getKey() << "<-->";
+
 		// Store next node in n
 		n = n->getNextLinkedNode();
 	}
 	// Print tail node's value
-	std::cout << n->getEntry() << std::endl;
-  // Print length of list
-  std::cout << "Length: " << nodecount_ << std::endl;
+	std::cout << n->getEntry().getKey() << std::endl;
+}
+
+// Overload the << operator to print the DLL data to an output stream
+std::ostream& operator<<(std::ostream& os, const DoubleLinkedList& dll) {
+	// If list is empty, return empty output stream
+	if (dll.isEmpty()) {return os;}
+
+	// Stores pointer to head node
+	LinkedNode* n = dll.head_;
+
+	// Loop until on last node (has no next node)
+	while (n->hasNextLinkedNode()) {
+		// Print node n's entry
+		os << n->getEntry().getKey() << "<-->";
+
+		// Store next node in n
+		n = n->getNextLinkedNode();
+	}
+	// Print tail node's value
+	os << n->getEntry().getKey();
+
+  // Return output stream
+  return os;
 }

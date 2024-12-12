@@ -1,3 +1,10 @@
+// Honor Pledge:
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
+
 #include <fstream>
 #include <iostream>
 #include <limits>
@@ -7,6 +14,8 @@
 #include "DoubleLinkedList.h"
 #include "HashEntry.h"
 #include "HashTableArray.h"
+#include "HashTableChaining.h"
+#include "HashTableCuckoo.h"
 
 // Loops until a number between [min, max] is input
 // Defaults to no maximum value
@@ -66,11 +75,14 @@ void readFileToTable(std::string fileName, HashTable* table) {
     ss >> key >> value; // Read number values from string stream into key and value
 
     table->insert(key, value); // Insert hash entry into hash table with key-value input
+
+    // If hash table needs rehashed, stop reading file
+    if (table->getNeedRehash()) {break;}
   }
 }
 
 int main(){
-  std::string fileName = "duplicates.txt"; // Stores file name to read entry data from
+  std::string fileName = "dictionary.txt"; // Stores file name to read entry data from
 
   HashTable* table = nullptr; // Declare hash table as nullptr
 
@@ -82,12 +94,12 @@ int main(){
 
   int key = 0; // Stores user input key for hash entry search and removal
 
+  std::cout << "Welcome to Hash-A-Lot, how may I take your order?" << std::endl;
+
   // Loop forever
   // Break condition is when option == 5
   while (true) {
-
-    std::cout << "Welcome to Hash-a-lot" <<
-      "\n1) Linear Probing" <<
+    std::cout << "\n1) Linear Probing" <<
       "\n2) Quadratic Probing" <<
       "\n3) Separate Chaining" <<
       "\n4) Cuckoo Hashing" <<
@@ -119,11 +131,23 @@ int main(){
       }
       // If creating a seperate chaining hash table...
       else if (option == 3) {
+        table = new HashTableChaining(size); // Create hash table
 
+        readFileToTable(fileName, table); // Read input file's data into hash table
       }
       // If creating a cuckoo hash table...
       else if (option == 4) {
+        table = new HashTableCuckoo(size); // Create hash table
 
+        readFileToTable(fileName, table); // Read input file's data into hash table
+
+
+      }
+
+      // If rehash is needed...
+      if(table->getNeedRehash()) {
+        std::cout << "\n<<<--- Insufficient Hash Table Size! Re-hash! --->>>" << std::endl;
+        continue; // Continue to next loop
       }
 
       table->print();
@@ -150,14 +174,14 @@ int main(){
           }
           // Else key was not found
           else {
-            std::cout << "\nInvalid key,  " << key << " not found in table" << std::endl;
+            std::cout << "\nInvalid key, " << key << " not found in table" << std::endl;
           }
         }
         // If removing an entry...
         else if (tableOption == 2) {
           key = getValidInput("Remove, please enter a key: ", 0); // Loops until user inputs a number >= 0
 
-          table->remove(key);
+          table->remove(key); // Remove entry matching input key from hash table if found
         }
         // If printing the table...
         else if (tableOption == 3) {
@@ -172,6 +196,7 @@ int main(){
     // If quitting the program...
     else if (option == 5) {
       delete table; // Delete table dynamic array from heap
+
       break; // Break from outer loop
     }
   }

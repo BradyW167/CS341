@@ -1,3 +1,10 @@
+// Honor Pledge:
+//
+// I pledge that I have neither given nor
+// received any help on this assignment.
+//
+// bwerling
+
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
@@ -17,7 +24,7 @@ class LinkedList
 		virtual ~LinkedList();
 
 		// Returns true if list is empty, false if not
-		bool isEmpty();
+		bool isEmpty() const;
 
 		// Returns the length of the list
 		int getLength();

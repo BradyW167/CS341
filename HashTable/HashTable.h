@@ -52,6 +52,9 @@ class HashTable {
 		 * Prints the contents of our Hash Table.
 		 */
 		virtual void print() = 0;
+
+    // Returns true if the table needs rehashed,
+    virtual bool getNeedRehash() = 0;
 };
 
 #endif
