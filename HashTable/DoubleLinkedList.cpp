@@ -16,8 +16,7 @@ DoubleLinkedList::~DoubleLinkedList() {}
 // Insert new node at input node with input hash entry
 void DoubleLinkedList::insertLinkedNode(LinkedNode* node, HashEntry data) {
 	// Insert at head if input node and head are null pointers
-	if(node == nullptr && head_ == nullptr)
-	{
+	if (node == nullptr && head_ == nullptr) {
 		// Create the new node
 		LinkedNode* new_node = new LinkedNode(data);
 		// Store data in first node as head_
@@ -50,35 +49,33 @@ void DoubleLinkedList::insertLinkedNode(LinkedNode* node, HashEntry data) {
 }
 
 // Insert new node after input node with input data
-void DoubleLinkedList::insertAfterLinkedNode(LinkedNode * node, HashEntry data)
-{
+void DoubleLinkedList::insertAfterLinkedNode(LinkedNode * node, HashEntry data) {
   insertLinkedNode(node, data);
 }
 
 // Insert new node before input node with input data
-void DoubleLinkedList::insertBeforeLinkedNode(LinkedNode * node, HashEntry data)
-{
+void DoubleLinkedList::insertBeforeLinkedNode(LinkedNode * node, HashEntry data) {
 	// Return if input node is null
 	if(node == nullptr) {return;}
 
 	// If inserting at head...
-	if(node == head_)
-	{
+	if(node == head_) {
 		// Create new node with data
-	    	LinkedNode* new_node = new LinkedNode(data);
+    LinkedNode* new_node = new LinkedNode(data);
 
 		// Set new node's next linked node to head_
-	    	new_node->setNextLinkedNode(head_);
+    new_node->setNextLinkedNode(head_);
 		
 		// Set head's previous linked node to the new node
-	    	head_->setPrevLinkedNode(new_node);
+    head_->setPrevLinkedNode(new_node);
 
-	    	// Set new node to head
+    // Set new node to head
 		head_ = new_node;
 
 		// If at tail, set tail to new node
-	    	if(tail_ == nullptr) {tail_ = new_node;}
+    if(tail_ == nullptr) {tail_ = new_node;}
 	}
+
 	// Insert node
 	insertLinkedNode(node->getPrevLinkedNode(), data);
 }
@@ -138,7 +135,7 @@ void DoubleLinkedList::removeLinkedNode(int key) {
       isFound = true; // Matching key was found
     }
     // If key is found in the tail node...
-    else if(key == LinkedList::getTail()->getEntry().getKey()) {
+    else if (key == LinkedList::getTail()->getEntry().getKey()) {
       LinkedNode* oldTail = LinkedList::getTail(); // Get pointer to head node
       LinkedNode* newTail = LinkedList::getTail()->getPrevLinkedNode(); // Get pointer to head node's next node
 

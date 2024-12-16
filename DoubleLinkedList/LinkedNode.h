@@ -35,6 +35,7 @@ class LinkedNode : public Node
 
 		// Returns true if this node has a next node
 		bool hasNextLinkedNode();
+
 	private:
 		LinkedNode* prevLinkedNode_;
 		LinkedNode* nextLinkedNode_;

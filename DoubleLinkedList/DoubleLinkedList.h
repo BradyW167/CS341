@@ -2,17 +2,15 @@
 #define DOUBLE_LINKED_LIST_H
 
 #include <iostream>
-#include "LinkedNode.h"
+
 #include "LinkedList.h"
+#include "LinkedNode.h"
 
 class DoubleLinkedList : public LinkedList
 {
 	public:
 		// Default constructor
 		DoubleLinkedList();
-
-		// Copy constructor
-		DoubleLinkedList(const DoubleLinkedList * list);
 
 		// Destructor
 		~DoubleLinkedList();
@@ -28,7 +26,7 @@ class DoubleLinkedList : public LinkedList
 		void insertBeforeLinkedNode(LinkedNode * node, int data = -1);
 
 		// Print the double linked list
-		virtual void printList() override;
+		void printList() override;
 };
 
 #endif
