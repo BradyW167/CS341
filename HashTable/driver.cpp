@@ -19,6 +19,7 @@
 
 // Loops until a number between [min, max] is input
 // Defaults to no maximum value
+// Return valid input number
 int getValidInput(std::string prompt, int min, int max = 0) {
   int num = 0; // Stores user input number (supposed)
 
@@ -56,6 +57,31 @@ int getValidInput(std::string prompt, int min, int max = 0) {
   }
 }
 
+// Loops until a string ending in .txt is input
+// Return valid input string
+std::string getValidInput(std::string prompt) {
+  std::string name = ""; // Stores user input string
+
+  // Loop infinitely, break when input is valid
+  while (true) {
+    std::cout << "\n" << prompt;
+
+    std::cin >> name;
+
+    // If the input name ends with ".txt"
+    // return it
+    if (name.size() >= 4 && name.substr(name.size() - 4) == ".txt") {return name;}
+    // Else input is invalid
+    else {
+      std::cerr << "\nInvalid filename, must end with '.txt'" << std::endl;
+
+      std::cin.clear(); // Clear any error flags
+
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+    }
+  }
+}
+
 void readFileToTable(std::string fileName, HashTable* table) {
   std::ifstream dataFile(fileName);
 
@@ -82,7 +108,10 @@ void readFileToTable(std::string fileName, HashTable* table) {
 }
 
 int main(){
-  std::string fileName = "dictionary.txt"; // Stores file name to read entry data from
+  // Stores file name to read entry data from
+  // Default is dictionary.txt, which contains numbers 0-255 followed by the number of 1s in their binary representation
+  // Space delimited
+  std::string fileName = "";
 
   HashTable* table = nullptr; // Declare hash table as nullptr
 
@@ -95,6 +124,20 @@ int main(){
   int key = 0; // Stores user input key for hash entry search and removal
 
   std::cout << "Welcome to Hash-A-Lot, how may I take your order?" << std::endl;
+
+  // Prompt user for file type selection
+  std::cout << "\n1) Default file" <<
+    "\n2) Custom input file (space delimited key-value pair on each line)" << std::endl;
+
+  option = getValidInput("Please enter your choice: ", 1, 2); // Loops until user inputs a number 1-2
+
+  // If using default file...
+  if(option == 1) {
+    fileName = "dictionary.txt"; // Set file name to default, dictionary.txt
+  // If using custom file...
+  }else if (option == 2) {
+    fileName = getValidInput("Please enter your input filename: "); // Loops until user inputs text ending in '.txt'
+  }
 
   // Loop forever
   // Break condition is when option == 5
@@ -140,8 +183,6 @@ int main(){
         table = new HashTableCuckoo(size); // Create hash table
 
         readFileToTable(fileName, table); // Read input file's data into hash table
-
-
       }
 
       // If rehash is needed...
